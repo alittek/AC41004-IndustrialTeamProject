@@ -1,4 +1,4 @@
 # AC41004-IndustrialTeamProject
 
 Bjarne Kopplin - 180016866
-funziona
+Patrizio Pigliacelli - 190014172
