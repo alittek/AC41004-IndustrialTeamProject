@@ -7,5 +7,8 @@
 - Scott Fulton - 180009413
 - Alan Sunny - 160009235
 - Godfrey - 170018315
+- Fergus McLaughlin - 170015911
+- Godfrey - 170018315
 - Patrizio Pigliacelli - 190014172
+
 
