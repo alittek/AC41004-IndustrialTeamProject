@@ -1,4 +1,7 @@
 # AC41004-IndustrialTeamProject
 
-Bjarne Kopplin - 180016866
-Patrizio Pigliacelli - 190014172
+- Alina Littek - 180016182
+- Bjarne Kopplin - 180016866
+- Mikolaj Olejnik - 180006025
+- Scott Fulton - 180009413
+- Alan Sunny - 160009235
