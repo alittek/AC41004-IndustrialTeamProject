@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<header>
+</header>
+
+
+<body>
+    <div class="container-fluid text-center text-md-left" style="padding:70px">
+        <div class="container-fluid" style="padding: 20px; background-color: lightgray; border-radius: 25px">
+        {% block content %}
+        {% endblock content %}
+        </div>
+    </div>
+
+    {% block javascript %}
+    {% endblock javascript %}
+</body>
+
+
+<footer>
+</footer>
+
+</html>
