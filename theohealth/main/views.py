@@ -17,21 +17,21 @@ def login(request):
     return render(request, 'main/login.html', context)
 
 # overview all athletes page
-def overview(request):
+def overview(request, pk):
     context = {
         "foo" : "bar",
     }
     return render(request, 'main/overview.html', context)
 
 # heatmap & info for one athlete
-def athlete(request):
+def athlete(request, pk):
     context = {
         "foo" : "bar",
     }
     return render(request, 'main/athlete.html', context)
 
 # page to add a new athlete
-def add_athlete(request):
+def add_athlete(request, pk):
     context = {
         "foo" : "bar",
     }
