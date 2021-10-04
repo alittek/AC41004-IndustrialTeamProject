@@ -30,6 +30,3 @@ theo() {
 	esac
 		
 }
-
-cd $DJANGO_DIR 
-theo help
