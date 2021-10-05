@@ -15,3 +15,13 @@ class Athlete(models.Model):
 
     def __str__(self):
         return self.first_name + " " + self.last_name
+
+class Workout(models.Model):
+    date = models.DateField()
+    athlete = models.ForeignKey(Athlete, on_delete=models.CASCADE)
+
+class SensorReading(models.Model):
+    workout_num = models.ForeignKey(Workout, on_delete=models.CASCADE)
+    sensor_num = models.IntegerField()
+    timestamp = models.DateTimeField()
+    heatvalue = models.IntegerField()
