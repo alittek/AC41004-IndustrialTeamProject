@@ -1,8 +1,18 @@
 {% extends "main/base.html" %}
 
+{% block title %} theo {% endblock title %}
+
 {% block content %}
 
 <h1>This is the Add Athlete page!!!</h1>
+
+<form action="/name/" method="post">
+    <label for="first_name">First name: </label>
+    <input id="first_name" type="text" name="first_name" value="{{ current_first_name }}">
+    <label for="last_name">Last name: </label>
+    <input id="last_name" type="text" name="last_name" value="{{ current_last_name }}">
+    <input type="submit" value="OK">
+</form>
 
 {% endblock content %}
 
