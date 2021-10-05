@@ -5,26 +5,31 @@
 <!-- Add Header and Footer for all pages here!!!-->
 
 <head>
+    <meta charset="utf-8">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+
+    <title>{% block title %} theo {% endblock title %}</title>
 </head>
 
-<header>
-</header>
-
-
 <body>
-    <div class="container-fluid text-center text-md-left" style="padding:70px">
-        <div class="container-fluid" style="padding: 20px; background-color: lightgray; border-radius: 25px">
+
+    <header>
+    </header>
+
+    <div id="content">
         {% block content %}
         {% endblock content %}
-        </div>
     </div>
 
     {% block javascript %}
     {% endblock javascript %}
+
+    
+    <footer>
+    </footer>
+
 </body>
-
-
-<footer>
-</footer>
 
 </html>
