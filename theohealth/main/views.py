@@ -1,9 +1,23 @@
 from django.shortcuts import render
+import pandas as pd
+import os
 from django.http import HttpResponse
 # Create your views here.
 
+
+# def index(request):
+#     THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+#     my_file = os.path.join(THIS_FOLDER, 'SensorTest-sensor1.csv')
+#     test = pd.read_csv (my_file)
+#     return HttpResponse("<h1>Hello Alina!</h1>. This is the <b>polls</b> index")
+
+
 # index page
 def index(request):
+    THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+    my_file = os.path.join(THIS_FOLDER, 'SensorTest-sensor1.csv')
+    test = pd.read_csv (my_file)
+
     context = {
             "foo" : "bar",
     }
