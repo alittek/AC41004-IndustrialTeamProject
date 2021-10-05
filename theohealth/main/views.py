@@ -16,12 +16,12 @@ from django.http import HttpResponse
 def index(request):
     THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
     my_file = os.path.join(THIS_FOLDER, 'SensorTest-sensor1.csv')
-    test = pd.read_csv (my_file)
+    output = pd.read_csv (my_file)
 
     context = {
             "foo" : "bar",
     }
-    return render(request, 'main/index.html', context)
+    return render(request, 'main/index.html', context, {'output': output})
 
 # login page
 def login(request):
