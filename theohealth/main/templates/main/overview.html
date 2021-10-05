@@ -2,7 +2,15 @@
 
 {% block content %}
 
-<h1>This is the Overview page!!!</h1>
+{% if athlete_list %}
+<ul>
+{% for athlete in athlete_list %}
+<li><a href="{% url 'main:athlete' athlete.id %}">{{ athlete }}</a></li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No athletes available</p>
+{% endif %}
 
 {% endblock content %}
 
