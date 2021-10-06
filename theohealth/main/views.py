@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 
@@ -51,6 +51,9 @@ def post_athlete(request):
     return render(request, 'main/add_athlete.html', context)
 
 
-def view_graph(request, pk):
-    context = {'graph': graph}
-    return render(request, 'main/view_graph.html', context)
+def view_graph(request, workout_id):
+    workout = get_object_or_404(Workout, pk=workout_id)
+    plotted_graph = workout.readings_from_file()
+    #context = {'plotted_graph': plotted_graph}
+    return HttpResponse(plotted_graph)
+    #return render(request, 'main/view_graph.html', context)

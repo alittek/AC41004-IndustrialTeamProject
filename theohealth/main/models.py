@@ -31,7 +31,6 @@ class Workout(models.Model):
         return str(self.date) + " " + self.athlete.__str__()
 
     def readings_from_file(self):
-        # headers = ['time','value']
         df = pd.read_csv('/vagrant/theohealth/main/SensorTest-set2/SensorTest-sensor1.csv')
 
         x = df['time'].map(lambda x: datetime.strptime(str(x), '%Y-%m-%dT%H:%M:%S.%fZ'))
