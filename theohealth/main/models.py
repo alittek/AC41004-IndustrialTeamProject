@@ -30,17 +30,22 @@ class Workout(models.Model):
     def __str__(self):
         return str(self.date) + " " + self.athlete.__str__()
 
+    # Stores fields in a 2D data structure, currently uses a static path
+    # TODO Change static path to relative, then user selected
     def readings_from_file(self):
         df = pd.read_csv('/vagrant/theohealth/main/SensorTest-set2/SensorTest-sensor1.csv')
 
+        # Latter part is a mask for the input from the CSV file
+        # x and y are the axis of the graph
         x = df['time'].map(lambda x: datetime.strptime(str(x), '%Y-%m-%dT%H:%M:%S.%fZ'))
         y = df['value']
 
-        # plot
+        # Plot
         plt.plot(x,y)
-        # beautify the x-labels
+        # Simplify the x-labels
         plt.gcf().autofmt_xdate()
 
+        # Shows the graph (Doesn't work in terminal)
         plt.show()
 
 # Individual reading, each reading is connected to a workout id
