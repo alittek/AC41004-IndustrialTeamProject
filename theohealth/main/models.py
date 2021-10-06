@@ -37,6 +37,13 @@ class Workout(models.Model):
         x = df['time'].map(lambda x: datetime.strptime(str(x), '%Y-%m-%dT%H:%M:%S.%fZ'))
         y = df['value']
 
+        # plot
+        plt.plot(x,y)
+        # beautify the x-labels
+        plt.gcf().autofmt_xdate()
+
+        plt.show()
+
 # Individual reading, each reading is connected to a workout id
 class SensorReading(models.Model):
     workout_num = models.ForeignKey(Workout, on_delete=models.CASCADE)
