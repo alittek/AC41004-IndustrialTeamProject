@@ -1,5 +1,7 @@
 {% extends "main/base.html" %}
 
+{% block title %} theo {% endblock title %}
+
 {% block content %}
 
 <h1>This is the Index page!!!</h1>
@@ -8,6 +10,7 @@
 {% if exit_code %}<h3>Your command returned an error: {{ error_msg }}</h3>{% endif %}
 
 {% endblock content %}
+
 
 {% block javascript %}
 {% endblock javascript %}
