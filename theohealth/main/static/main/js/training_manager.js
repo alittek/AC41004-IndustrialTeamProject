@@ -1,3 +1,7 @@
+/*
+ * Training Manager
+ * a module that updates the heatmap according to sensor readings
+ */
 import { update_heatmap } from "./heatmap.js"
 
 /*
@@ -29,9 +33,11 @@ update_heatmap(200)
 
 
 var sensor_value = 200
-setInterval(() => {
-        console.log("running")
+
+ // uncomment to periodically change the heatmap
+var interval = setInterval(() => {
   sensor_value = readingGen(sensor_value)
-  heatmap_update(sensor_value)
+  update_heatmap(sensor_value)
 }, 1000)
+
 
