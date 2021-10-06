@@ -1,5 +1,6 @@
 from django.db import models
 
+import os
 import pandas as pd
 from datetime import datetime
 import csv
@@ -31,9 +32,10 @@ class Workout(models.Model):
         return str(self.date) + " " + self.athlete.__str__()
 
     # Stores fields in a 2D data structure, currently uses a static path
-    # TODO Change static path to relative, then user selected
+    # TODO Change path to user selected OR all 4 files, either is fine
     def readings_from_file(self):
-        df = pd.read_csv('/vagrant/theohealth/main/SensorTest-set2/SensorTest-sensor1.csv')
+        # Must use path from the Python shell (manage.py), not from main!
+        df = pd.read_csv('main/SensorTest-set2/SensorTest-sensor1.csv')
 
         # Latter part is a mask for the input from the CSV file
         # x and y are the axis of the graph
