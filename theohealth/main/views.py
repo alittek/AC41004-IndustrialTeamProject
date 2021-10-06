@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import generic
 
-from main.models import Athlete, Therapist
+from main.models import Athlete, Therapist, Workout, SensorReading
 
 # index page
 def index(request):
@@ -49,3 +49,8 @@ def post_athlete(request):
         "foo" : "bar",
     }
     return render(request, 'main/add_athlete.html', context)
+
+
+def view_graph(request, pk):
+    context = {'graph': graph}
+    return render(request, 'main/view_graph.html', context)
