@@ -54,7 +54,7 @@ function modleload() {
   loader.load('/static/main/3d_models/LowerL.gltf', function(gltf) {
     var lowerlMesh = gltf.scene.children.find((child) => child.name === "LowerLeft")
     lowerlMesh.position.y = -3
-
+    
     addLleftmesh(lowerlMesh);
 
   })
@@ -62,21 +62,24 @@ function modleload() {
 
 function addLleftmesh(lowerlMesh) {
   var lower_left_leg = lowerlMesh.clone(true);
-
+/*
   var colours = [
     [200, 0xd6d01e],
     [600, 0xcf871b],
     [900, 0xc91c1c]
   ]
-
+*/
   if (reading == 200) {
     lower_left_leg.material = new THREE.MeshStandardMaterial({ color: 0xd6d01e })
+    scene.remove(lower_left_leg)
     scene.add(lower_left_leg)
   } else if (reading == 600) {
     lower_left_leg.material = new THREE.MeshStandardMaterial({ color: 0xcf871b })
+    scene.remove(lower_left_leg)
     scene.add(lower_left_leg)
   } else if (reading == 900) {
     lower_left_leg.material = new THREE.MeshStandardMaterial({ color: 0xc91c1c })
+    scene.remove(lower_left_leg)
     scene.add(lower_left_leg)
   }
 
