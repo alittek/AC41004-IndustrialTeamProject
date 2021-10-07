@@ -51,9 +51,9 @@ def post_athlete(request):
     return render(request, 'main/add_athlete.html', context)
 
 
-def view_graph(request, workout_id):
+def request_workout_details(request, workout_id):
     workout = get_object_or_404(Workout, pk=workout_id)
-    plotted_graph = workout.readings_from_file()
+    all_readings = workout.readings_from_file()
     #context = {'plotted_graph': plotted_graph}
-    return HttpResponse(plotted_graph)
+    return HttpResponse(all_readings)
     #return render(request, 'main/view_graph.html', context)

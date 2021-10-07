@@ -32,7 +32,6 @@ class Workout(models.Model):
         return str(self.date) + " " + self.athlete.__str__()
 
     # Stores fields in a 2D data structure
-    # TODO Change path to user selected OR all 4 files, either is fine
     def readings_from_file(self):
         # Dict used to store readings from all 4 files
         readings = {}
