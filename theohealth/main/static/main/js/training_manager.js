@@ -61,14 +61,15 @@ function update() {
     [2021-09-30T10:27:54.581Z, 670]
   ]
 
-  // set the reference point for where the browser currently is
+  // set the reference point for where the browser currently is in real time
   var reference_point = time.now + date(2021-09-30T10:27:53.047Z)
 
   for (let i = 0; i < time.now; i++) {  //for every second
-    while (isBufferInPast(buffer[[n]], reference_point) == true) {
-      n += 1
+    while (isBufferInPast(buffer[[n]], reference_point) == true) {  // check if the buffer is before the reference point and if it is then move on to the next value
+      n += 1  // go to the next value
     }
     new_reading = buffer[[n]]
+    // return new_reading
   }
   return new_reading
 }
