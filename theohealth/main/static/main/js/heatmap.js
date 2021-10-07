@@ -96,6 +96,6 @@ function animate() {
 export function update_heatmap(new_reading) {
   requestAnimationFrame(animate)
   reading = new_reading
-  modleload()
+ // modleload()
 }
 
