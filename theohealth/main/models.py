@@ -31,24 +31,32 @@ class Workout(models.Model):
     def __str__(self):
         return str(self.date) + " " + self.athlete.__str__()
 
-    # Stores fields in a 2D data structure, currently uses a static path
+    # Stores fields in a 2D data structure
     # TODO Change path to user selected OR all 4 files, either is fine
     def readings_from_file(self):
-        # Must use path from the Python shell (manage.py), not from main!
-        df = pd.read_csv('main/SensorTest-set2/SensorTest-sensor1.csv')
+        # Dict used to store readings from all 4 files
+        readings = {}
+        for i in range(1, 5):
+            # Must use path from the Python shell (manage.py), not from /main!
+            df = pd.read_csv('main/SensorTest-set2/SensorTest-sensor' + str(i) + '.csv')
+            # Appends as sensor(num)
+            readings['sensor' + str(i)] = df
 
-        # Latter part is a mask for the input from the CSV file
-        # x and y are the axis of the graph
-        x = df['time'].map(lambda x: datetime.strptime(str(x), '%Y-%m-%dT%H:%M:%S.%fZ'))
-        y = df['value']
+            # Latter part is a mask for the input from the CSV file
+            # x and y are the axis of the graph
+            x = df['time'].map(lambda x: datetime.strptime(str(x), '%Y-%m-%dT%H:%M:%S.%fZ'))
+            y = df['value']
 
-        # Plot
-        plt.plot(x,y)
-        # Simplify the x-labels
-        plt.gcf().autofmt_xdate()
+            # Plot
+            plt.plot(x,y)
+            # Simplify the x-labels
+            plt.gcf().autofmt_xdate()
 
-        # Shows the graph (Doesn't work in terminal)
-        plt.show()
+            #plt.savefig('debugging_graph' + str(i) + '.png')
+
+            # Shows the graph (Doesn't work in terminal), for debugging remove comment for line above
+            plt.show()
+        return readings
 
 # Individual reading, each reading is connected to a workout id
 class SensorReading(models.Model):
