@@ -9,7 +9,7 @@ scene.background = new THREE.Color('white')
 
 var camera = new THREE.PerspectiveCamera(100, innerWidth / innerHeight, 0.1, 1000)
 var canvas = document.getElementById("heatmap-canvas")
-var renderer = new THREE.WebGLRenderer()
+var renderer = new THREE.WebGLRenderer({antialias : true})
 
 //light (change so it lights the back side or moves with camera???)
 var light = new THREE.AmbientLight(0xffffff, 0.5)
@@ -27,17 +27,20 @@ var loader = new GLTFLoader()
 //var mesh = new THREE.Mesh(loader, material)
 var reading = 200 // this will need to be the function that gets the readings (mkae a place holder)
 
-//three place holder materials for testing(more to be added or possibly dynamic colours ???)
-var HighUseage = new THREE.MeshStandardMaterial({ color: 0xc91c1c })
-var MedUseage = new THREE.MeshStandardMaterial({ color: 0xcf871b })
-var LowUseage = new THREE.MeshStandardMaterial({ color: 0xd6d01e })
+//Material libary, c1 = low  c6 = high (more can be added if needed 6 was a good test range)
+var c1 = new THREE.MeshStandardMaterial({ color: 0xc8d124 })
+var c2 = new THREE.MeshStandardMaterial({ color: 0xd1b424 })
+var c3 = new THREE.MeshStandardMaterial({ color: 0xd18624 })
+var c4 = new THREE.MeshStandardMaterial({ color: 0xd15e24 })
+var c5 = new THREE.MeshStandardMaterial({ color: 0xd14424 })
+var c6 = new THREE.MeshStandardMaterial({ color: 0xd12424 })
 
 //set the light and camera positions for the secen
 light.position.set(0, 0, 1)
-camera.position.z = 8
-camera.position.y = 2
+camera.position.z = 7
+camera.position.y = 0
 
-//orbit Controls(fix these to much freedom ??)
+//orbit Controls
 const controls = new OrbitControls(camera, renderer.domElement)
 controls.minPolarAngle=controls.maxPolarAngle=1.57079
 controls.enablePan = false; //fixes the movment my need to limit it rather than stop it
@@ -49,41 +52,62 @@ controls.maxDistance = 8;
 scene.add(light)
 scene.add(lightS)
 
+//create the modles(all included for later use)
+var UpperRightLeg = new THREE.Object3D()
+var UpperLeftLeg = new THREE.Object3D()
+var LowerRightLeg = new THREE.Object3D()
+var LowerLeftLeg = new THREE.Object3D()
+
 function modleload() {
   //Lower left leg
   loader.load('/static/main/3d_models/LowerL.gltf', function(gltf) {
-    var lowerlMesh = gltf.scene.children.find((child) => child.name === "LowerLeft")
-    lowerlMesh.position.y = -3
-    
-    addLleftmesh(lowerlMesh);
-
+    LowerLeftLeg = gltf.scene.children.find((child) => child.name === "LowerLeft")
+    LowerLeftLeg.position.y = -3
+    scene.add(LowerLeftLeg);
+  })
+  loader.load('/static/main/3d_models/LowerR.gltf', function(gltf) {
+    LowerRightLeg = gltf.scene.children.find((child) => child.name === "LowerRight")
+    LowerRightLeg.position.y = -3
+    scene.add(LowerRightLeg);
+  })
+  loader.load('/static/main/3d_models/UpplerL.gltf', function(gltf) {
+    UpperRightLeg = gltf.scene.children.find((child) => child.name === "UpperLeft")
+    UpperRightLeg.position.y = -3
+    scene.add(UpperRightLeg);
+  })
+  loader.load('/static/main/3d_models/UpperR.gltf', function(gltf) {
+    UpperLeftLeg = gltf.scene.children.find((child) => child.name === "UpperRight")
+    UpperLeftLeg.position.y = -3
+    scene.add(UpperLeftLeg);
   })
 }
-
-function addLleftmesh(lowerlMesh) {
-  var lower_left_leg = lowerlMesh.clone(true);
 /*
-  var colours = [
-    [200, 0xd6d01e],
-    [600, 0xcf871b],
-    [900, 0xc91c1c]
-  ]
+There will be a colourChanger for each limb when the "reading" test data is replaced
+currently all limbs change to the same colour because we dont have 4 reading genorators 
+I have changed the order for the limbs to better show what the end product will be but they
+should be c1 - c6 in order
 */
-  if (reading == 200) {
-    lower_left_leg.material = new THREE.MeshStandardMaterial({ color: 0xd6d01e })
-    scene.remove(lower_left_leg)
-    scene.add(lower_left_leg)
-  } else if (reading == 600) {
-    lower_left_leg.material = new THREE.MeshStandardMaterial({ color: 0xcf871b })
-    scene.remove(lower_left_leg)
-    scene.add(lower_left_leg)
-  } else if (reading == 900) {
-    lower_left_leg.material = new THREE.MeshStandardMaterial({ color: 0xc91c1c })
-    scene.remove(lower_left_leg)
-    scene.add(lower_left_leg)
+function colourChanger()
+  {
+    console.log(reading)
+   switch(reading) {
+    case 300 : {LowerLeftLeg.material = c3, LowerRightLeg.material = c1, UpperLeftLeg.material = c2, UpperRightLeg.material = c1}
+    break
+    case 500 : {LowerLeftLeg.material = c3, LowerRightLeg.material = c4, UpperLeftLeg.material = c2, UpperRightLeg.material = c2}
+    break
+    case 600 : {LowerLeftLeg.material = c4, LowerRightLeg.material = c4, UpperLeftLeg.material = c2, UpperRightLeg.material = c1}
+    break
+    case 700 : {LowerLeftLeg.material = c2, LowerRightLeg.material = c4, UpperLeftLeg.material = c1, UpperRightLeg.material = c3}
+    break
+    case 800 : {LowerLeftLeg.material = c6, LowerRightLeg.material = c5, UpperLeftLeg.material = c3, UpperRightLeg.material = c3}
+    break
+    case 900 : {LowerLeftLeg.material = c5, LowerRightLeg.material = c6, UpperLeftLeg.material = c2, UpperRightLeg.material = c1}
+    break
+   }
   }
 
-}
+//load modles
+modleload()
 
 function animate() {
   requestAnimationFrame(animate)
@@ -96,6 +120,6 @@ function animate() {
 export function update_heatmap(new_reading) {
   requestAnimationFrame(animate)
   reading = new_reading
-  modleload()
+  colourChanger()
 }
 
