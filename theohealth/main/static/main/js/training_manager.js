@@ -41,3 +41,46 @@ var interval = setInterval(() => {
 }, 1000)
 
 
+
+// --- SCOTT'S CODE BELOW ---
+
+
+
+/**
+ * update()
+ * 
+ * function which takes in sensor readings with thier associated
+ * timestamps and updates the currently displayed value 30 times a second
+ */
+function update() {
+  
+  // buffer which contains all the sensor readings with associated timestamps
+  const buffer = [
+    [2021-09-30T10:27:53.047Z, 46],
+    [2021-09-30T10:27:53.558Z, 254],
+    [2021-09-30T10:27:54.581Z, 670]
+  ]
+
+  // set the reference point for where the browser currently is
+  var reference_point = time.now + date(2021-09-30T10:27:53.047Z)
+
+  for (let i = 0; i < time.now; i++) {  //for every second
+    while (isBufferInPast(buffer[[n]], reference_point) == true) {
+      n += 1
+    }
+    new_reading = buffer[[n]]
+  }
+  return new_reading
+}
+
+/**
+ * isBufferInPast()
+ * 
+ * function which checks if the most recent 
+ */
+function isBufferInPast(buffer, reference_point) {
+  if (buffer[[]] < reference_point) {
+    return true
+  }
+  return false
+}
