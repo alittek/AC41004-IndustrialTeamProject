@@ -63,9 +63,7 @@ class Workout(models.Model):
 
             # # Shows the graph (Doesn't work in terminal), for debugging remove comment for line above
             # plt.show()
-        #print(json.dumps(readings))
-        print(readings)
-        return readings
+        return json.dumps(readings)
 
 # Individual reading, each reading is connected to a workout id
 class SensorReading(models.Model):
