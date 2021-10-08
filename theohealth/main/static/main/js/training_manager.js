@@ -65,9 +65,9 @@ function update() {
 
   Initial_Reference_point = buffer[0][0]  // inital reference point is set to be the time of the first timestamp in the buffer
 
-  var Timer // timer that tracks the time that has surpassed since the initial reference point
+  var timer // timer that tracks the time that has surpassed since the initial reference point - need to figure out how to implement time elapsed
   
-  reference_point = initial_reference_point + TimeR() // set the reference point to be 
+  reference_point = initial_reference_point + timer // set the reference point to be the time elapsed since the initial reference point
 
   for (let i = 0; i < time.now; i++) {  //for every second
     while (isBufferInPast(buffer[[n]], reference_point) == true) {  // check if the buffer is before the reference point and if it is then move on to the next value
