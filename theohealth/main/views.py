@@ -41,19 +41,19 @@ def athlete(request, pk):
 # page to add a new athlete
 def add_athlete(request, pk):
     if request.method == "POST" :
-        add_athlete = AddAthleteForm(request.POST)   
-        if add_athlete.is_valid():
+        add_athlete_form = AddAthleteForm(request.POST)   
+        if add_athlete_form.is_valid():
             default_therapist = Therapist.objects.get(pk=1)
             new_athlete = Athlete.objects.create(
                 therapist = default_therapist,
-                first_name = add_athlete.cleaned_data['first_name'],
-                last_name = add_athlete.cleaned_data['last_name'],
-                contact_nb = add_athlete.cleaned_data['contact_nb'],
-                email = add_athlete.cleaned_data['email'],
-                phone_nb = add_athlete.cleaned_data['phone_nb'],
-                injury = add_athlete.cleaned_data['injury'],
+                first_name = add_athlete_form.cleaned_data['first_name'],
+                last_name = add_athlete_form.cleaned_data['last_name'],
+                contact_nb = add_athlete_form.cleaned_data['contact_nb'],
+                email = add_athlete_form.cleaned_data['email'],
+                phone_nb = add_athlete_form.cleaned_data['phone_nb'],
+                injury = add_athlete_form.cleaned_data['injury'],
             )
-            messages.success(request, ('Athlete added successfully'))
+            messages.success(request, 'Athlete added successfully')
         else: 
             messages.error(request, 'Error saving athlete')
     
