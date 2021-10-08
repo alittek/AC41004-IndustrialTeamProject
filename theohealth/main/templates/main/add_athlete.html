@@ -6,13 +6,41 @@
 
 <h1>This is the Add Athlete page!!!</h1>
 
-<form action="/name/" method="post">
+<!-- form to enter details of a new client -->
+<!-- name, contact number, email, phone number, injury -->
+<!-- 
+<form action="/new_client/" method="post">
     <label for="first_name">First name: </label>
-    <input id="first_name" type="text" name="first_name" value="{{ current_first_name }}">
+    <input id="first_name" type="text" name="first_name">
     <label for="last_name">Last name: </label>
-    <input id="last_name" type="text" name="last_name" value="{{ current_last_name }}">
+    <input id="last_name" type="text" name="last_name">
+    <label for="contact_nb">Contact Number: </label>
+    <input id="contact_nb" type="text" name="contact_nb">
+    <label for="email">Email: </label>
+    <input id="email" type="text" name="email">
+    <label for="phone_nb">Phone Number: </label>
+    <input id="phone_nb" type="text" name="phone_nb">
+    <label for="injury">Injury: </label>
+    <input id="injury" type="text" name="injury">
     <input type="submit" value="OK">
+
+
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit"> 
 </form>
+-->
+
+
+<div class="container" style="background-color: grey;">
+    <!--Django Model Form-->
+    <h2 class="my-4">Add a new athlete</h2>
+    <form method="post">
+      {% csrf_token %}
+          {{add_athlete.as_p}}
+          <button class="btn btn-primary my-4" type="submit">Submit</button>
+    </form>      
+</div>
 
 {% endblock content %}
 
