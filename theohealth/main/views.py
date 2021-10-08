@@ -1,29 +1,15 @@
-from django.shortcuts import render
-import pandas as pd
-import os
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 
-from main.models import Athlete, Therapist
-
-
-# def index(request):
-#     THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-#     my_file = os.path.join(THIS_FOLDER, 'SensorTest-sensor1.csv')
-#     test = pd.read_csv (my_file)
-#     return HttpResponse("<h1>Hello Alina!</h1>. This is the <b>polls</b> index")
-
+from main.models import Athlete, Therapist, Workout, SensorReading
 
 # index page
 def index(request):
-    THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-    my_file = os.path.join(THIS_FOLDER, 'SensorTest-sensor1.csv')
-    output = pd.read_csv (my_file)
-
     context = {
             "foo" : "bar",
     }
-    return render(request, 'main/index.html', context, {'output': output})
+    return render(request, 'main/index.html', context)
 
 # login page
 def login(request):
@@ -63,3 +49,11 @@ def post_athlete(request):
         "foo" : "bar",
     }
     return render(request, 'main/add_athlete.html', context)
+
+
+def request_workout_details(request, workout_id):
+    workout = get_object_or_404(Workout, pk=workout_id)
+    all_readings = workout.readings_from_file()
+    #context = {'plotted_graph': plotted_graph}
+    return HttpResponse(all_readings)
+    #return render(request, 'main/view_graph.html', context)

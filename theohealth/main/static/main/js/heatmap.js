@@ -12,7 +12,8 @@ var canvas = document.getElementById("heatmap-canvas")
 var renderer = new THREE.WebGLRenderer()
 
 //light (change so it lights the back side or moves with camera???)
-var light = new THREE.DirectionalLight(0xffffff, 1)
+var light = new THREE.AmbientLight(0xffffff, 0.5)
+var lightS = new THREE.DirectionalLight(0xffffff, 0.7)
 
 //make sure secen fits the window
 renderer.setSize(innerWidth, innerHeight)
@@ -37,8 +38,16 @@ camera.position.z = 8
 camera.position.y = 2
 
 //orbit Controls(fix these to much freedom ??)
-new OrbitControls(camera, renderer.domElement)
+const controls = new OrbitControls(camera, renderer.domElement)
+controls.minPolarAngle=controls.maxPolarAngle=1.57079
+controls.enablePan = false; //fixes the movment my need to limit it rather than stop it
+//zoom distance
+controls.minDistance = 4; 
+controls.maxDistance = 8;
+
+//addlights
 scene.add(light)
+scene.add(lightS)
 
 function modleload() {
   //Lower left leg

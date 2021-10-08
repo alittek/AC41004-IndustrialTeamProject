@@ -9,4 +9,5 @@ urlpatterns = [
         path('athlete/<int:pk>', views.athlete, name="athlete"),
         path('add_athlete/<int:pk>', views.add_athlete, name="add_athlete"),
         path('post_athlete/', views.post_athlete, name="past_athlete"),
+        path('request_workout_details/<int:workout_id>', views.request_workout_details, name="request_workout_details"),
         ]
