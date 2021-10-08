@@ -1,10 +1,9 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
-
-from main.models import Athlete, Therapist
 from main.forms import AddAthleteForm
 from django.contrib import messages
+from main.models import Athlete, Therapist, Workout, SensorReading
 
 # index page
 def index(request):
@@ -67,3 +66,11 @@ def post_athlete(request):
         "foo" : "bar",
     }
     return render(request, 'main/add_athlete.html', context)
+
+
+def request_workout_details(request, workout_id):
+    workout = get_object_or_404(Workout, pk=workout_id)
+    all_readings = workout.readings_from_file()
+    #context = {'plotted_graph': plotted_graph}
+    return HttpResponse(all_readings)
+    #return render(request, 'main/view_graph.html', context)
