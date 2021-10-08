@@ -73,15 +73,3 @@ function update() {
   }
   return new_reading
 }
-
-/**
- * isBufferInPast()
- * 
- * function which checks if the most recent 
- */
-function isBufferInPast(buffer, reference_point) {
-  if (buffer[[]] < reference_point) {
-    return true
-  }
-  return false
-}
