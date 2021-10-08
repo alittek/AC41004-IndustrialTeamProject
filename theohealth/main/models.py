@@ -40,9 +40,9 @@ class Workout(models.Model):
             # Must use path from the Python shell (manage.py), not from /main!
             df = pd.read_csv('main/SensorTest-set2/SensorTest-sensor' + str(i) + '.csv')
             # Change Dataframe to Dictionary because you can't convert a Dataframe object o JSON
-            df.to_dict()
+            data_dict = df.to_dict()
             # Appends as sensor(num)
-            readings['sensor' + str(i)] = df
+            readings['sensor' + str(i)] = data_dict
 
             ########## OUTDATED FOR NOW, CAN BE UPDATED IN 2ND SPRINT ##########
 
@@ -61,6 +61,7 @@ class Workout(models.Model):
             # # Shows the graph (Doesn't work in terminal), for debugging remove comment for line above
             # plt.show()
         #print(json.dumps(readings))
+        print(readings)
         return readings
 
 # Individual reading, each reading is connected to a workout id
