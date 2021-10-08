@@ -59,12 +59,11 @@ function update() {
     [2021-09-30T10:27:54.581Z, 670]
   ]
 
-  var isBufferInPast = new Boolean(false)
+  var isBufferInPast = new Boolean(true) // variable used to return true if the timestamo in the buffer is behind the reference point
 
   var reference_point = 0 // initialising the reference point for where the browser currently is in real time
 
-  // inital reference point is set to be the time of the first timestamp in the buffer
-  Initial_Reference_point = buffer[0][0]  // set this to be 10 seconds before the first time in buffer
+  Initial_Reference_point = buffer[0][0]  // inital reference point is set to be the time of the first timestamp in the buffer
 
   setTimeout // timer that tracks the time that has surpassed since the initial reference point
   
