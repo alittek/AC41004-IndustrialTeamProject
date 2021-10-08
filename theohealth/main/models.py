@@ -1,5 +1,6 @@
 from django.db import models
 
+import json
 import os
 import pandas as pd
 from datetime import datetime
@@ -38,23 +39,28 @@ class Workout(models.Model):
         for i in range(1, 5):
             # Must use path from the Python shell (manage.py), not from /main!
             df = pd.read_csv('main/SensorTest-set2/SensorTest-sensor' + str(i) + '.csv')
+            # Change Dataframe to Dictionary because you can't convert a Dataframe object o JSON
+            df.to_dict()
             # Appends as sensor(num)
             readings['sensor' + str(i)] = df
 
-            # Latter part is a mask for the input from the CSV file
-            # x and y are the axis of the graph
-            x = df['time'].map(lambda x: datetime.strptime(str(x), '%Y-%m-%dT%H:%M:%S.%fZ'))
-            y = df['value']
+            ########## OUTDATED FOR NOW, CAN BE UPDATED IN 2ND SPRINT ##########
 
-            # Plot
-            plt.plot(x,y)
-            # Simplify the x-labels
-            plt.gcf().autofmt_xdate()
+            # # Latter part is a mask for the input from the CSV file
+            # # x and y are the axis of the graph
+            # x = df['time'].map(lambda x: datetime.strptime(str(x), '%Y-%m-%dT%H:%M:%S.%fZ'))
+            # y = df['value']
 
-            #plt.savefig('debugging_graph' + str(i) + '.png')
+            # # Plot
+            # plt.plot(x,y)
+            # # Simplify the x-labels
+            # plt.gcf().autofmt_xdate()
 
-            # Shows the graph (Doesn't work in terminal), for debugging remove comment for line above
-            plt.show()
+            # #plt.savefig('debugging_graph' + str(i) + '.png')
+
+            # # Shows the graph (Doesn't work in terminal), for debugging remove comment for line above
+            # plt.show()
+        #print(json.dumps(readings))
         return readings
 
 # Individual reading, each reading is connected to a workout id
