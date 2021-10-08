@@ -1,8 +1,9 @@
 /*
  * General
  */
-h1 {
-  color: #0297a2;
+* {
+  font-family: 'Poppins', 'Open Sans', 'sans-serif'; 
+  color:#0297a2;
 }
 
 .btn {
@@ -12,6 +13,10 @@ h1 {
 .content {
   max-width: 1400px;
   margin: auto;
+}
+
+footer {
+  font-weight: bold;
 }
 
 /*
