@@ -59,14 +59,16 @@ function update() {
     [2021-09-30T10:27:54.581Z, 670]
   ]
 
+  var isBufferInPast = new Boolean(false)
+
   var reference_point = 0 // initialising the reference point for where the browser currently is in real time
 
   // inital reference point is set to be the time of the first timestamp in the buffer
-  Initial_Reference_point = buffer[0][0]  // possible set this to be 10 seconds before the first time in buffer?
+  Initial_Reference_point = buffer[0][0]  // set this to be 10 seconds before the first time in buffer
 
   setTimeout // timer that tracks the time that has surpassed since the initial reference point
   
-  reference_point = initial_reference_point + TimeR() // 
+  reference_point = initial_reference_point + TimeR() // set the reference point to be 
 
   for (let i = 0; i < time.now; i++) {  //for every second
     while (isBufferInPast(buffer[[n]], reference_point) == true) {  // check if the buffer is before the reference point and if it is then move on to the next value
