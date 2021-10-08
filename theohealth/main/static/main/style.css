@@ -9,6 +9,11 @@ h1 {
   background-color: #f36d21 !important;
 }
 
+.content {
+  max-width: 1400px;
+  margin: auto;
+}
+
 /*
  * Heatmap
  */
