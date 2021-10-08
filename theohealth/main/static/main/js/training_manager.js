@@ -65,7 +65,7 @@ function update() {
 
   Initial_Reference_point = buffer[0][0]  // inital reference point is set to be the time of the first timestamp in the buffer
 
-  setTimeout // timer that tracks the time that has surpassed since the initial reference point
+  var Timer // timer that tracks the time that has surpassed since the initial reference point
   
   reference_point = initial_reference_point + TimeR() // set the reference point to be 
 
