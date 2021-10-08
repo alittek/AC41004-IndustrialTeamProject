@@ -1,7 +1,8 @@
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
-from main.forms import AddAthleteForm
+from main.forms import AddAthleteForm, LoginForm
 from django.contrib import messages
 from main.models import Athlete, Therapist, Workout, SensorReading
 
@@ -13,10 +14,16 @@ def index(request):
     return render(request, 'main/index.html', context)
 
 # login page
-def login(request):
-    context = {
-        "foo" : "bar",
-    }
+def login_form(request):
+    if request.method == 'POST' :
+        login_form = LoginForm(request.POST)
+        if login_form.is_valid():
+
+            return HttpResponseRedirect('/overview/')
+        else: 
+            messages.error(request, 'Error logging in')
+
+    context = {"form":LoginForm()}
     return render(request, 'main/login.html', context)
 
 # overview all athletes page
