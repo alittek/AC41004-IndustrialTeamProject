@@ -53,26 +53,20 @@ var interval = setInterval(() => {
  * timestamps and updates the currently displayed value 30 times a second
  */
 function update() {
-  
-  // buffer which contains all the sensor readings with associated timestamps
-  const buffer = [
+  const buffer = [  // buffer which contains all the sensor readings with associated timestamps
     [2021-09-30T10:27:53.047Z, 46],
     [2021-09-30T10:27:53.558Z, 254],
     [2021-09-30T10:27:54.581Z, 670]
   ]
 
-  // the reference point for where the browser currently is in real time
-  // initialising reference_point
-  var reference_point = 0
+  var reference_point = 0 // initialising the reference point for where the browser currently is in real time
 
   // inital reference point is set to be the time of the first timestamp in the buffer
   Initial_Reference_point = buffer[0][0]  // possible set this to be 10 seconds before the first time in buffer?
+
+  setTimeout // timer that tracks the time that has surpassed since the initial reference point
   
-  // timer that tracks the time that has surpassed since the initial reference point
-  setTimeout
-  
-  // 
-  var initial_reference_point = reference_point + TimeR()
+  reference_point = initial_reference_point + TimeR() // 
 
   for (let i = 0; i < time.now; i++) {  //for every second
     while (isBufferInPast(buffer[[n]], reference_point) == true) {  // check if the buffer is before the reference point and if it is then move on to the next value
