@@ -61,10 +61,6 @@ function update() {
     [2021-09-30T10:27:54.581Z, 670]
   ]
 
-  // get the current time
-  var date = new Date()
-  var currentTime = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + 'T' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '.' + date.getMilliseconds() + 'z'
-
   // set the reference point for where the browser currently is in real time
   var reference_point = currentTime + Date(2021-09-30T10:27:53.047Z)
 
