@@ -2,7 +2,11 @@
  * General
  */
 h1 {
-    color: green;
+  color: #0297a2;
+}
+
+.btn {
+  background-color: #f36d21 !important;
 }
 
 /*
