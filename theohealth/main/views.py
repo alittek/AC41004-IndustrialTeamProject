@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.views import generic
 
 from main.models import Athlete, Therapist
+from main.forms import AddAthleteForm
+from django.contrib import messages
 
 # index page
 def index(request):
@@ -38,10 +40,26 @@ def athlete(request, pk):
 
 # page to add a new athlete
 def add_athlete(request, pk):
-    context = {
-        "foo" : "bar",
-    }
-    return render(request, 'main/add_athlete.html', context)
+    if request.method == "POST" :
+        add_athlete = AddAthleteForm(request.POST)   
+        if add_athlete.is_valid():
+            default_therapist = Therapist.objects.get(pk=1)
+            new_athlete = Athlete.objects.create(
+                therapist = default_therapist,
+                first_name = add_athlete.cleaned_data['first_name'],
+                last_name = add_athlete.cleaned_data['last_name'],
+                contact_nb = add_athlete.cleaned_data['contact_nb'],
+                email = add_athlete.cleaned_data['email'],
+                phone_nb = add_athlete.cleaned_data['phone_nb'],
+                injury = add_athlete.cleaned_data['injury'],
+            )
+            messages.success(request, ('Athlete added successfully'))
+        else: 
+            messages.error(request, 'Error saving athlete')
+    
+    add_athlete = AddAthleteForm()
+    all_athletes = Athlete.objects.all()
+    return render(request, 'main/add_athlete.html', context={'add_athlete':add_athlete, 'all_athletes':all_athletes})
 
 # instruct server to add new athlete
 def post_athlete(request):
