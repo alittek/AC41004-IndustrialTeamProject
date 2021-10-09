@@ -26,6 +26,11 @@ table {
 
 .btn {
   background-color: #f36d21 !important;
+  border-color: #f36d21 !important;
+}
+
+#captureBtn {
+  color: white; 
 }
 
 .content {
