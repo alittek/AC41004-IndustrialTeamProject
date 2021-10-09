@@ -84,12 +84,12 @@ function modleload() {
 
 
 var thresholds = [
-	{threshold: 100, mesh: new THREE.MeshStandardMaterial({ color: 0xc8d124 }) },
-	{threshold: 150, mesh: new THREE.MeshStandardMaterial({ color: 0xd1b424 }) },
-	{threshold: 200, mesh: new THREE.MeshStandardMaterial({ color: 0xd18624 }) },
-	{threshold: 250, mesh: new THREE.MeshStandardMaterial({ color: 0xd15e24 }) },
-	{threshold: 300, mesh: new THREE.MeshStandardMaterial({ color: 0xd14424 }) },
-	{threshold: 350, mesh: new THREE.MeshStandardMaterial({ color: 0xc8d124 }) },
+	{threshold: 300, material: new THREE.MeshStandardMaterial({ color: 0xc8d124 }) },
+	{threshold: 500, material: new THREE.MeshStandardMaterial({ color: 0xd1b424 }) },
+	{threshold: 600, material: new THREE.MeshStandardMaterial({ color: 0xd18624 }) },
+	{threshold: 700, material: new THREE.MeshStandardMaterial({ color: 0xd15e24 }) },
+	{threshold: 800, material: new THREE.MeshStandardMaterial({ color: 0xd14424 }) },
+	{threshold: 900, material: new THREE.MeshStandardMaterial({ color: 0xc12424 }) },
 ]
 /*
 There will be a colourChanger for each limb when the "reading" test data is replaced
@@ -97,10 +97,10 @@ currently all limbs change to the same colour because we dont have 4 reading gen
 I have changed the order for the limbs to better show what the end product will be but they
 should be c1 - c6 in order
 */
-function colourChanger()
+function colourChanger(r)
   {
-    console.log(reading)
-   switch(reading) {
+  /*
+   switch(r) {
     case 300 : {LowerLeftLeg.material = c3, LowerRightLeg.material = c1, UpperLeftLeg.material = c2, UpperRightLeg.material = c1}
     break
     case 500 : {LowerLeftLeg.material = c3, LowerRightLeg.material = c4, UpperLeftLeg.material = c2, UpperRightLeg.material = c2}
@@ -114,6 +114,19 @@ function colourChanger()
     case 900 : {LowerLeftLeg.material = c5, LowerRightLeg.material = c6, UpperLeftLeg.material = c2, UpperRightLeg.material = c1}
     break
    }
+   */
+    for (let i=0; i<thresholds.length; i++) {
+	console.log("i: ", i, ", r: ", r, "t: ", thresholds[i].threshold)
+	if (r < thresholds[i].threshold) {
+		console.log('true')
+		console.log(thresholds[i].material)
+		LowerLeftLeg.material = thresholds[i].material
+		LowerRightLeg.material = thresholds[i].material
+		UpperLeftLeg.material = thresholds[i].material
+		UpperRightLeg.material = thresholds[i].material
+		return;
+	}
+    }
   }
 
 //load modles
@@ -129,7 +142,7 @@ function animate() {
  */
 export function update_heatmap(new_reading) {
   requestAnimationFrame(animate)
-  reading = new_reading
-  colourChanger()
+  //reading = new_reading
+  colourChanger(new_reading)
 }
 
