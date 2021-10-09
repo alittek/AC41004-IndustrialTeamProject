@@ -50,7 +50,7 @@
 				Logged in as <b>{{ user }}</b> - {% if perms.auth.is_therapist %}Therapist {% elif perms.auth.is_athlete %}Athlete{% endif %}</a>
 		</li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">Logout</a>
+			<a class="nav-link" href="{% url 'main:logout' %}">Logout</a>
                 </li>
 		{% else %}
                 <li class="nav-item">

@@ -3,8 +3,9 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
+from django.urls import reverse
 
 from main.forms import AddAthleteForm, LoginForm
 from main.models import Athlete, Therapist, Workout, SensorReading
@@ -28,7 +29,10 @@ def login_form(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('/overview/1') # make dynamic
+                if user.has_perm('auth.is_therapist'):
+                    return HttpResponseRedirect(reverse('main:overview', kwargs={'pk': 1}))
+                else:
+                    return HttpResponseRedirect(reverse('main:athlete', kwargs={'pk': 1}))
             else:
                 error = "invalid username or password"
                 return render(request, 'main/login.html', {'form': form, 'error': error})
@@ -39,6 +43,10 @@ def login_form(request):
     else:
         form = LoginForm()
     return render(request, 'main/login.html', {'form':form})
+
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("main:login"))
 
 # overview all athletes page
 class OverviewView(generic.ListView):
