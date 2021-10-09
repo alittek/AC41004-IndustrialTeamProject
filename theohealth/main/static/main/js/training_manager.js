@@ -45,6 +45,16 @@ var sensor_value = 200
 // --- SCOTT'S CODE BELOW ---
 
 let buffer = []
+/*
+* this function goes through all element in the buffer and displays them regardless of timestamps
+*/
+function simple_loop() {
+    for (var i = 0; i < buffer[0].length; i++) {
+      var current_reading = buffer[0].shift()
+      console.log(current_reading)
+     // update_heatmap(current_reading)
+    }
+}
 
 
 /**
@@ -88,10 +98,19 @@ function fetch_readings() {
   const xHttp = new XMLHttpRequest()
   xHttp.onload = function() {
     buffer = JSON.parse(this.responseText)
-    console.log(buffer)
+    var simple_interval = setInterval(() => {
+      if (buffer.length > 0) {
+        var current_reading = buffer[0].shift()
+        console.log(current_reading)
+        update_heatmap(current_reading[1])
+      } else {
+        clearInterval(simple_interval)
+      }
+
+    }, 1000)
     }
   xHttp.open("GET", "/request_workout_details/1", true) // initialise request
   xHttp.send() // send request
 }
 
-fetch_readings()
+// fetch_readings()
