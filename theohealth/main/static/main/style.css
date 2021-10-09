@@ -1,8 +1,22 @@
 /*
  * General
  */
-h1 {
-    color: green;
+* {
+  font-family: 'Poppins', 'Open Sans', 'sans-serif'; 
+  color:#0297a2;
+}
+
+.btn {
+  background-color: #f36d21 !important;
+}
+
+.content {
+  max-width: 1400px;
+  margin: auto;
+}
+
+footer {
+  font-weight: bold;
 }
 
 /*

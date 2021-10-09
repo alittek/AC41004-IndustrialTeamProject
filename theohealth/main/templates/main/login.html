@@ -5,21 +5,24 @@
 {% block content %}
 
 <!-- form to enter login details -->
-<div class="container" style="background-color: grey;">
+<div class="container">
+  <div class="row justify-content-center align-items-center">
     <!--Django Model Form-->
-    <h2 class="my-4">Login</h2>
+    <h1 class="my-4">Login</h1>
+    </div>
+	{% if error %}
+	    <div class="row justify-content-center align-items-center">
+	    <p>{{ error }}</p>
+	    </div>
+	{% endif %}
+    <div class="row justify-content-center align-items-center">
     <form method="post">
       {% csrf_token %}
           <table>{{ form.as_table }}</table>
-          <button class="btn btn-primary my-4" type="submit">Login</button>
+          <button class="btn btn-primary my-4 float-right" type="submit">Login</button>
     </form>   
-    {% if messages %}
-    <ul class="messages">
-      {% for message in messages %}
-      <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
-      {% endfor %}
-    </ul>
-    {% endif %}   
+
+  </div>
 </div>
 
 {% endblock content %}

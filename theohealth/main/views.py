@@ -2,8 +2,10 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
-from main.forms import AddAthleteForm, LoginForm
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
+
+from main.forms import AddAthleteForm, LoginForm
 from main.models import Athlete, Therapist, Workout, SensorReading
 
 # index page
@@ -16,15 +18,24 @@ def index(request):
 # login page
 def login_form(request):
     if request.method == 'POST' :
-        login_form = LoginForm(request.POST)
-        if login_form.is_valid():
-
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect('/overview/1') # make dynamic
+            else:
+                error = "invalid username or password"
+                return render(request, 'main/login.html', {'form': form, 'error': error})
             return HttpResponseRedirect('/overview/')
         else: 
-            messages.error(request, 'Error logging in')
+            error = "error loggin in"
 
-    context = {"form":LoginForm()}
-    return render(request, 'main/login.html', context)
+    else:
+        form = LoginForm()
+    return render(request, 'main/login.html', {'form':form})
 
 # overview all athletes page
 class OverviewView(generic.ListView):
@@ -39,8 +50,10 @@ class OverviewView(generic.ListView):
 
 # heatmap & info for one athlete
 def athlete(request, pk):
+    athlete = get_object_or_404(Athlete, pk=pk)
     context = {
         "foo" : "bar",
+        "athlete": athlete,
     }
     return render(request, 'main/athlete.html', context)
 

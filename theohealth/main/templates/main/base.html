@@ -9,8 +9,9 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'main/style.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-      
-
+    {% load static %}
+    <link rel="icon" href="{% static 'main/images/TheoFavicon.png' %}">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:700%7COpen+Sans:400,700,400&amp;subset=devanagari,latin-ext,latin,greek,cyrillic-ext,cyrillic,vietnamese,greek-ext" rel="stylesheet">
 
     <script src="{% static 'main/js/main.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -24,18 +25,47 @@
 <body>
 
     <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                {% load static %}
+                <img src="{% static 'main/images/TheoLogo.png' %}" width="170" height="50" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                <a class="nav-link" href="#">Overview<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Add Client</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Logout</a>
+                </li>
+            </ul>
+            </div>
+        </nav>
     </header>
 
-    <div id="content">
-        {% block content %}
-        {% endblock content %}
+    <div class="content"> 
+        <div>
+            {% block content %}
+            {% endblock content %}
+        </div>
     </div>
 
     {% block javascript %}
     {% endblock javascript %}
 
 
-    <footer>
+    <footer class="page-footer font-small">
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2021 Copyright:
+           <a>Team 8</a>
+        </div>
     </footer>
 
 </body>
