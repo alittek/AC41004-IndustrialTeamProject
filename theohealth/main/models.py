@@ -1,5 +1,6 @@
 from django.db import models
 
+import json
 import os
 import pandas as pd
 from datetime import datetime
@@ -34,31 +35,37 @@ class Workout(models.Model):
     def __str__(self):
         return str(self.date) + " " + self.athlete.__str__()
 
-    # Stores fields in a 2D data structure
+    # Stores fields in a 3D array
     def readings_from_file(self):
-        # Dict used to store readings from all 4 files
-        readings = {}
+        # 3D array
+        readings = []
         for i in range(1, 5):
             # Must use path from the Python shell (manage.py), not from /main!
             df = pd.read_csv('main/SensorTest-set2/SensorTest-sensor' + str(i) + '.csv')
+            values = []
+            # Zips the columns together so the time and value can be accessed together
+            [values.append(record) for record in zip(df.time, df.value)]
             # Appends as sensor(num)
-            readings['sensor' + str(i)] = df
+            readings.append(values)
 
-            # Latter part is a mask for the input from the CSV file
-            # x and y are the axis of the graph
-            x = df['time'].map(lambda x: datetime.strptime(str(x), '%Y-%m-%dT%H:%M:%S.%fZ'))
-            y = df['value']
+            ########## OUTDATED FOR NOW, CAN BE UPDATED IN 2ND SPRINT ##########
 
-            # Plot
-            plt.plot(x,y)
-            # Simplify the x-labels
-            plt.gcf().autofmt_xdate()
+            # # Latter part is a mask for the input from the CSV file
+            # # x and y are the axis of the graph
+            # x = df['time'].map(lambda x: datetime.strptime(str(x), '%Y-%m-%dT%H:%M:%S.%fZ'))
+            # y = df['value']
 
-            #plt.savefig('debugging_graph' + str(i) + '.png')
+            # # Plot
+            # plt.plot(x,y)
+            # # Simplify the x-labels
+            # plt.gcf().autofmt_xdate()
 
-            # Shows the graph (Doesn't work in terminal), for debugging remove comment for line above
-            plt.show()
-        return readings
+            # #plt.savefig('debugging_graph' + str(i) + '.png')
+
+            # # Shows the graph (Doesn't work in terminal), for debugging remove comment for line above
+            # plt.show()      
+        # JSON to be able to read it into JS
+        return json.dumps(readings)
 
 # Individual reading, each reading is connected to a workout id
 class SensorReading(models.Model):
