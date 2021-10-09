@@ -106,12 +106,13 @@ function fetch_readings() {
     var readings = Array(4)
     for (var s=0; s < buffer.length; s++) {
       if (buffer[s].length > 0) { // buffer has timestamps
-        var current_reading = buffer[s].shift()
-	      update_heatmap([current_reading[1]])
+	 
+         readings[s] = buffer[s].shift()[1]
       } else {
         clearInterval(simple_interval)
       }
     }
+    update_heatmap([readings[0], readings[1], readings[2], readings[3]])
 
     }, 1000) // 1000s milliseconds
     }
