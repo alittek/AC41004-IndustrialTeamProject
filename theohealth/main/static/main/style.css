@@ -27,6 +27,9 @@ table {
 .btn {
   background-color: #f36d21 !important;
   border-color: #f36d21 !important;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  border-radius: 25px !important;
 }
 
 #captureBtn {
