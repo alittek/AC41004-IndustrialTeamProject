@@ -27,25 +27,37 @@
 
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">
+		<a class="navbar-brand" href="{% url 'main:home' %}">
                 {% load static %}
                 <img src="{% static 'main/images/TheoLogo.png' %}" width="170" height="50" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+		{% if user.is_authenticated %}
+		{% if perms.auth.is_therapist %}
                 <li class="nav-item active">
-                <a class="nav-link" href="#">Overview<span class="sr-only">(current)</span></a>
+			<a class="nav-link" href="{% url 'main:overview' 1 %}">Overview<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">Add Client</a>
+			<a class="nav-link" href="{% url 'main:add_athlete' 1 %}">new athlete</a>
                 </li>
+		{% endif %}
+		<li class="nav-item">
+			<a class="nav-link disabled">
+				Logged in as <b>{{ user }}</b> - {% if perms.auth.is_therapist %}Therapist {% elif perms.auth.is_athlete %}Athlete{% endif %}</a>
+		</li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">Logout</a>
+			<a class="nav-link" href="{% url 'main:logout' %}">Logout</a>
                 </li>
+		{% else %}
+                <li class="nav-item">
+			<a class="nav-link" href="{% url 'main:login' %}">Login</a>
+                </li>
+		{% endif %}
             </ul>
             </div>
         </nav>
