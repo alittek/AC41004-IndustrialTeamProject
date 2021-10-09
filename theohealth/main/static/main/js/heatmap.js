@@ -52,6 +52,10 @@ controls.maxDistance = 8;
 scene.add(light)
 scene.add(lightS)
 
+var models = Array(4)
+for (let i=0; i < models.length; i++) {
+	models[i] = new THREE.Object3D()
+}
 //create the modles(all included for later use)
 var UpperRightLeg = new THREE.Object3D()
 var UpperLeftLeg = new THREE.Object3D()
@@ -60,6 +64,7 @@ var LowerLeftLeg = new THREE.Object3D()
 
 function modleload() {
   //Lower left leg
+	/*
   loader.load('/static/main/3d_models/LowerL.gltf', function(gltf) {
     LowerLeftLeg = gltf.scene.children.find((child) => child.name === "LowerLeft")
     LowerLeftLeg.position.y = -3
@@ -79,6 +84,29 @@ function modleload() {
     UpperLeftLeg = gltf.scene.children.find((child) => child.name === "UpperRight")
     UpperLeftLeg.position.y = -3
     scene.add(UpperLeftLeg);
+  })
+	*/
+
+  // same with array
+  loader.load('/static/main/3d_models/LowerL.gltf', function(gltf) {
+    models[0]  = gltf.scene.children.find((child) => child.name === "LowerLeft")
+    models[0].position.y = -3
+    scene.add(models[0]);
+  })
+  loader.load('/static/main/3d_models/LowerR.gltf', function(gltf) {
+    models[1] = gltf.scene.children.find((child) => child.name === "LowerRight")
+    models[1].position.y = -3
+    scene.add(models[1]);
+  })
+  loader.load('/static/main/3d_models/UpplerL.gltf', function(gltf) {
+    models[2] = gltf.scene.children.find((child) => child.name === "UpperLeft")
+    models[2].position.y = -3
+    scene.add(models[2]);
+  })
+  loader.load('/static/main/3d_models/UpperR.gltf', function(gltf) {
+    models[3] = gltf.scene.children.find((child) => child.name === "UpperRight")
+    models[3].position.y = -3
+    scene.add(models[3]);
   })
 }
 
@@ -116,14 +144,13 @@ function colourChanger(r)
    }
    */
     for (let i=0; i<thresholds.length; i++) {
-	console.log("i: ", i, ", r: ", r, "t: ", thresholds[i].threshold)
 	if (r < thresholds[i].threshold) {
 		console.log('true')
 		console.log(thresholds[i].material)
-		LowerLeftLeg.material = thresholds[i].material
-		LowerRightLeg.material = thresholds[i].material
-		UpperLeftLeg.material = thresholds[i].material
-		UpperRightLeg.material = thresholds[i].material
+		models[0].material = thresholds[i].material
+		models[1].material = thresholds[i].material
+		models[2].material = thresholds[i].material
+		models[3].material = thresholds[i].material
 		return;
 	}
     }
