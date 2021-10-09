@@ -7,24 +7,26 @@
 <!-- form to enter details of a new client -->
 <!-- name, contact number, email, phone number, injury -->
 <div class="container">
-  <div class="row justify-content-center align-items-center">
+  <div class="row justify-content-center">
     <!--Django Model Form-->
     <h1 class="my-4">Add a new athlete</h1>
-    </div>
-    <div class="row justify-content-center align-items-center">
+  </div>
+  <div class="row justify-content-center">
     <form method="post">
       {% csrf_token %}
-          <table>{{ add_athlete.as_table }}</table>
-          <button class="btn btn-primary my-4 float-right" type="submit">Submit</button>
-    </form>   
+        <table>{{ add_athlete.as_table }}</table>
+        <button class="btn btn-primary my-4 float-right" type="submit">Submit</button>
+    </form>  
+  </div>
+  <div class="row justify-content-center">
     {% if messages %}
     <ul class="messages">
       {% for message in messages %}
-      <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+      <p  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
       {% endfor %}
     </ul>
     {% endif %}   
-    </div>
+  </div>
 </div>
 
 {% endblock content %}
