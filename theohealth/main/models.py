@@ -38,15 +38,17 @@ class Workout(models.Model):
     # Stores fields in a 2D data structure
     def readings_from_file(self):
         # Dict used to store readings from all 4 files
-        readings = {}
+        readings = []
         for i in range(1, 5):
             # Must use path from the Python shell (manage.py), not from /main!
             df = pd.read_csv('main/SensorTest-set2/SensorTest-sensor' + str(i) + '.csv')
             # Change Dataframe to Dictionary because you can't convert a Dataframe object to JSON
             # orient='index' for easier referencing
-            data_dict = df.to_dict(orient='index')
+            # data_dict = df.to_dict(orient='index')
+            values = []
+            [values.append(record) for record in zip(df.time, df.value)]
             # Appends as sensor(num)
-            readings['sensor' + str(i)] = data_dict
+            readings.append(values)
 
             ########## OUTDATED FOR NOW, CAN BE UPDATED IN 2ND SPRINT ##########
 

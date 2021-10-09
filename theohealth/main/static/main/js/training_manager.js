@@ -44,6 +44,7 @@ var sensor_value = 200
 
 // --- SCOTT'S CODE BELOW ---
 
+let buffer = []
 
 
 /**
@@ -53,11 +54,7 @@ var sensor_value = 200
  * timestamps and updates the currently displayed value 30 times a second
  */
 function update() {
-  // const buffer = [  // buffer which contains all the sensor readings with associated timestamps
-  //   [2021-09-30T10:27:53.047Z, 46],
-  //   [2021-09-30T10:27:53.558Z, 254],
-  //   [2021-09-30T10:27:54.581Z, 670]
-  // ]
+  
 
   var isBufferInPast = new Boolean(true) // variable used to return true if the timestamp in the buffer is behind the reference point
 
@@ -90,13 +87,11 @@ function update() {
 function fetch_readings() {
   const xHttp = new XMLHttpRequest()
   xHttp.onload = function() {
-    console.log(this.responseText) // for debugging
-    var tmp = JSON.parse(this.responseText)
-    console.log("tmp 1 ", tmp.sensor1)
-  }
+    buffer = JSON.parse(this.responseText)
+    console.log(buffer)
+    }
   xHttp.open("GET", "/request_workout_details/1", true) // initialise request
   xHttp.send() // send request
 }
 
 fetch_readings()
-
