@@ -42,8 +42,9 @@ class Workout(models.Model):
         for i in range(1, 5):
             # Must use path from the Python shell (manage.py), not from /main!
             df = pd.read_csv('main/SensorTest-set2/SensorTest-sensor' + str(i) + '.csv')
-            # Change Dataframe to Dictionary because you can't convert a Dataframe object o JSON
-            data_dict = df.to_dict()
+            # Change Dataframe to Dictionary because you can't convert a Dataframe object to JSON
+            # orient='index' for easier referencing
+            data_dict = df.to_dict(orient='index')
             # Appends as sensor(num)
             readings['sensor' + str(i)] = data_dict
 
