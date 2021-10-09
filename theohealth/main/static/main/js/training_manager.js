@@ -37,7 +37,7 @@ var sensor_value = 200
   // uncomment to periodically change the heatmap
  var interval = setInterval(() => {
    sensor_value = readingGen(sensor_value)
-   update_heatmap(sensor_value)
+   update_heatmap([sensor_value, sensor_value-100, sensor_value+200, sensor_value+300])
  }, 1000)
 
 
