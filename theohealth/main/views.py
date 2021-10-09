@@ -3,7 +3,9 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.template import RequestContext
+from django.urls import reverse
 
 from main.forms import AddAthleteForm, LoginForm
 from main.models import Athlete, Therapist, Workout, SensorReading
@@ -12,6 +14,8 @@ from main.models import Athlete, Therapist, Workout, SensorReading
 def index(request):
     context = {
             "foo" : "bar",
+            "session": request.session,
+            "user": request.user,
     }
     return render(request, 'main/index.html', context)
 
@@ -25,7 +29,13 @@ def login_form(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('/overview/1') # make dynamic
+                return HttpResponseRedirect(reverse('main:home'))
+                """
+                if user.has_perm('auth.is_therapist'):
+                    return HttpResponseRedirect(reverse('main:overview', kwargs={'pk': 1}))
+                else:
+                    return HttpResponseRedirect(reverse('main:athlete', kwargs={'pk': 1}))
+                    """
             else:
                 error = "invalid username or password"
                 return render(request, 'main/login.html', {'form': form, 'error': error})
@@ -37,6 +47,10 @@ def login_form(request):
         form = LoginForm()
     return render(request, 'main/login.html', {'form':form})
 
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("main:login"))
+
 # overview all athletes page
 class OverviewView(generic.ListView):
     template_name = 'main/overview.html'
@@ -47,6 +61,10 @@ class OverviewView(generic.ListView):
         Return the list of athletes that are registered with the logged-in physiotherapist
         """
         return Athlete.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
 
 # heatmap & info for one athlete
 def athlete(request, pk):
@@ -93,3 +111,16 @@ def request_workout_details(request, workout_id):
     all_readings = workout.readings_from_file()
     context = {'all_readings': all_readings}
     return HttpResponse(all_readings)
+
+def home(request):
+    """
+    Redirects a user to the correct homepage depending on their permissions.
+    For instance, a Physiotherapist would be redirected to the athletes' overview page located at main:overview, whereas an athlete would be redirected to their profie/heatmap view.
+    This function is also meant to be called after logging in to redirect the user to their correct homepage.
+    """
+    if request.user.has_perm('auth.is_therapist'):
+        return HttpResponseRedirect(reverse('main:overview', kwargs={'pk': 1}))
+    elif request.user.has_perm('auth.is_athlete'):
+        return HttpResponseRedirect(reverse('main:athlete', kwargs={'pk': 1}))
+    else:
+        return HttpResponseRedirect(reverse('main:login'))
