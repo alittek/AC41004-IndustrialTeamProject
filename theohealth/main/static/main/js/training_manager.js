@@ -53,11 +53,11 @@ var sensor_value = 200
  * timestamps and updates the currently displayed value 30 times a second
  */
 function update() {
-  const buffer = [  // buffer which contains all the sensor readings with associated timestamps
-    [2021-09-30T10:27:53.047Z, 46],
-    [2021-09-30T10:27:53.558Z, 254],
-    [2021-09-30T10:27:54.581Z, 670]
-  ]
+  // const buffer = [  // buffer which contains all the sensor readings with associated timestamps
+  //   [2021-09-30T10:27:53.047Z, 46],
+  //   [2021-09-30T10:27:53.558Z, 254],
+  //   [2021-09-30T10:27:54.581Z, 670]
+  // ]
 
   var isBufferInPast = new Boolean(true) // variable used to return true if the timestamp in the buffer is behind the reference point
 
@@ -70,7 +70,7 @@ function update() {
   reference_point = initial_reference_point + timer // set the reference point to be the time elapsed since the initial reference point
 
   while (isBufferInPast == true) {  // check if the buffer is before the reference point and if it is then move on to the next value
-    if () {
+    if (true) {
       isBufferInPast
     }
   }
@@ -78,3 +78,19 @@ function update() {
   new_reading = buffer[0][1]  // set the value at the most recent timestamp to be the new reading
   return new_reading  // return new_reading
 }
+
+
+function fetch_readings() {
+  console.log("fetch_readings")
+  const xHttp = new XMLHttpRequest()
+  xHttp.onload = function() {
+    console.log(this.responseText)
+    var tmp = JSON.parse(this.responseText)
+    console.log("tmp 1 ", tmp.sensor1)
+  }
+  xHttp.open("GET", "/request_workout_details/1", true)
+  xHttp.send()
+}
+
+fetch_readings()
+

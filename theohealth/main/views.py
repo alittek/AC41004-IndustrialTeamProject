@@ -87,9 +87,9 @@ def post_athlete(request):
     }
     return render(request, 'main/add_athlete.html', context)
 
-
+# Workout details for the purpose of updating the heatmap
 def request_workout_details(request, workout_id):
     workout = get_object_or_404(Workout, pk=workout_id)
     all_readings = workout.readings_from_file()
     context = {'all_readings': all_readings}
-    return render(request, 'main/athlete.html', context)
+    return HttpResponse(all_readings)
