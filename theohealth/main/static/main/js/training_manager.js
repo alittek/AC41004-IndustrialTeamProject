@@ -86,17 +86,16 @@ function update() {
   return new_reading  // return new_reading
 }
 
-
+// from all files
 function fetch_readings() {
-  console.log("fetch_readings")
   const xHttp = new XMLHttpRequest()
   xHttp.onload = function() {
-    console.log(this.responseText)
+    console.log(this.responseText) // for debugging
     var tmp = JSON.parse(this.responseText)
     console.log("tmp 1 ", tmp.sensor1)
   }
-  xHttp.open("GET", "/request_workout_details/1", true)
-  xHttp.send()
+  xHttp.open("GET", "/request_workout_details/1", true) // initialise request
+  xHttp.send() // send request
 }
 
 fetch_readings()
