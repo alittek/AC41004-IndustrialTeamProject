@@ -11,29 +11,27 @@
 <div class="container">
 {% if athlete_list %}
 {% for athlete in athlete_list %}
-<div class="row justify-content-center">
+<div class="row justify-content-center" style="margin-bottom: 20px;">
 <div class="card" style="width: 80%;">
     <div class="card-body">
       <h5 class="card-title">{{ athlete }}</h5>
       <p class="card-text">
         <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Contact Nb</th>
-                <th scope="col">{{athlete.contact_nb}}</th>
-              </tr>
-            </thead>
             <tbody>
               <tr>
-                <th scope="row">Email</th>
+                <th style="width: 30%;">Contact</th>
+                <td style="width: 70%;">{{athlete.contact_nb}}</th>
+              </tr>
+              <tr>
+                <th>Email</th>
                 <td>{{athlete.email}}</td>
               </tr>
               <tr>
-                <th scope="row">Phone Nb</th>
+                <th>Phone</th>
                 <td>{{athlete.phone_nb}}</td>
               </tr>
               <tr>
-                <th scope="row">Injury</th>
+                <th>Injury</th>
                 <td>{{athlete.injury}}</td>
               </tr>
             </tbody>
