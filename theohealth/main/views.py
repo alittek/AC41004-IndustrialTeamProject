@@ -113,7 +113,7 @@ def request_workout_details(request, workout_id):
         context = {'all_readings': all_readings}
         return HttpResponse(all_readings)
     else:
-        return HttpResponse(":(")
+        return HttpResponse("")
 
 def home(request):
     """
