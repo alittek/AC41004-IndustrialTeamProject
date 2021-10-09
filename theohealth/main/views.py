@@ -29,10 +29,13 @@ def login_form(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
+                return HttpResponseRedirect(reverse('main:home'))
+                """
                 if user.has_perm('auth.is_therapist'):
                     return HttpResponseRedirect(reverse('main:overview', kwargs={'pk': 1}))
                 else:
                     return HttpResponseRedirect(reverse('main:athlete', kwargs={'pk': 1}))
+                    """
             else:
                 error = "invalid username or password"
                 return render(request, 'main/login.html', {'form': form, 'error': error})
@@ -109,3 +112,16 @@ def request_workout_details(request, workout_id):
     #context = {'plotted_graph': plotted_graph}
     return HttpResponse(all_readings)
     #return render(request, 'main/view_graph.html', context)
+
+def home(request):
+    """
+    Redirects a user to the correct homepage depending on their permissions.
+    For instance, a Physiotherapist would be redirected to the athletes' overview page located at main:overview, whereas an athlete would be redirected to their profie/heatmap view.
+    This function is also meant to be called after logging in to redirect the user to their correct homepage.
+    """
+    if request.user.has_perm('auth.is_therapist'):
+        return HttpResponseRedirect(reverse('main:overview', kwargs={'pk': 1}))
+    elif request.user.has_perm('auth.is_athlete'):
+        return HttpResponseRedirect(reverse('main:athlete', kwargs={'pk': 1}))
+    else:
+        return HttpResponseRedirect(reverse('main:login'))
