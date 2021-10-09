@@ -21,7 +21,7 @@ class Athlete(models.Model):
     contact_nb = models.CharField(max_length=64, default= '')
     email = models.CharField(max_length=64, default= '')
     phone_nb = models.CharField(max_length=64, default= '')
-    injury = models.CharField(max_length=64, default= '')
+    injury = models.CharField(max_length=256, default= '')
     
     def __str__(self):
         return self.first_name + " " + self.last_name
