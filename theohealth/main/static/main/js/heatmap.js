@@ -63,29 +63,6 @@ var LowerRightLeg = new THREE.Object3D()
 var LowerLeftLeg = new THREE.Object3D()
 
 function modleload() {
-  //Lower left leg
-	/*
-  loader.load('/static/main/3d_models/LowerL.gltf', function(gltf) {
-    LowerLeftLeg = gltf.scene.children.find((child) => child.name === "LowerLeft")
-    LowerLeftLeg.position.y = -3
-    scene.add(LowerLeftLeg);
-  })
-  loader.load('/static/main/3d_models/LowerR.gltf', function(gltf) {
-    LowerRightLeg = gltf.scene.children.find((child) => child.name === "LowerRight")
-    LowerRightLeg.position.y = -3
-    scene.add(LowerRightLeg);
-  })
-  loader.load('/static/main/3d_models/UpplerL.gltf', function(gltf) {
-    UpperRightLeg = gltf.scene.children.find((child) => child.name === "UpperLeft")
-    UpperRightLeg.position.y = -3
-    scene.add(UpperRightLeg);
-  })
-  loader.load('/static/main/3d_models/UpperR.gltf', function(gltf) {
-    UpperLeftLeg = gltf.scene.children.find((child) => child.name === "UpperRight")
-    UpperLeftLeg.position.y = -3
-    scene.add(UpperLeftLeg);
-  })
-	*/
 
   // same with array
   loader.load('/static/main/3d_models/LowerL.gltf', function(gltf) {
