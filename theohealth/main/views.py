@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.views import generic
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.template import RequestContext
 
 from main.forms import AddAthleteForm, LoginForm
 from main.models import Athlete, Therapist, Workout, SensorReading
@@ -12,6 +13,8 @@ from main.models import Athlete, Therapist, Workout, SensorReading
 def index(request):
     context = {
             "foo" : "bar",
+            "session": request.session,
+            "user": request.user,
     }
     return render(request, 'main/index.html', context)
 
@@ -47,6 +50,10 @@ class OverviewView(generic.ListView):
         Return the list of athletes that are registered with the logged-in physiotherapist
         """
         return Athlete.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
 
 # heatmap & info for one athlete
 def athlete(request, pk):

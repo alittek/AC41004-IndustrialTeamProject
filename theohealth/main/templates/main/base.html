@@ -42,14 +42,23 @@
                 <li class="nav-item">
                 <a class="nav-link" href="#">Add Client</a>
                 </li>
+		{% if user.is_authenticated %}
+		<li class="nav-item">
+			<a class="nav-link disabled">
+				Logged in as <b>{{ user }}</b> - {% if perms.auth.is_therapist %}Therapist {% elif perms.auth.is_athlete %}Athlete{% endif %}</a>
+		</li>
                 <li class="nav-item">
                 <a class="nav-link" href="#">Logout</a>
                 </li>
+		{% else %}
+                <li class="nav-item">
+                <a class="nav-link" href="#">Login</a>
+                </li>
+		{% endif %}
             </ul>
             </div>
         </nav>
     </header>
-
     <div class="content"> 
         <div>
             {% block content %}
