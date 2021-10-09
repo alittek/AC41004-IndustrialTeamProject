@@ -8,16 +8,27 @@
 <div class="heading">
   {% if athlete %}
     <h1>{{ athlete.first_name }} {{ athlete.last_name }}</h1>
+    <div class="row justify-content-center">
+    <ul class="list-group" style="width: 50%;">
+      <li class="list-group-item">Contact: {{athlete.contact_nb}}</li>
+      <li class="list-group-item"><i class="bi bi-envelope-fill"></i> Email: {{athlete.email}}</li>
+      <li class="list-group-item"><i class="bi bi-telephone-fill"></i>Phone: {{athlete.phone_nb}}</li>
+      <li class="list-group-item">Injury: {{athlete.injury}}</li>
+    </ul>
+    </div>
   {% endif %}
 </div>
 
-{# heatmap #}
+
+<div class="container">
 <div class="row justify-content-center text-center">
   <div class="col">
-  <h1>HEAT MAP</h1>
-    <p>
-      Heat map test for 3d object and drag function
-    </p>
+    <h1>HEAT MAP</h1>
+  </div>
+</div>
+<div class="row justify-content-center">
+  <div class="col">
+    <button class="btn btn-primary my-4 float-right" type="submit"><i class="bi bi-play-fill" id="captureBtn"> Start Capture</i></button>
   </div>
 </div>
 <div class="row justify-content-center text-center">
@@ -35,12 +46,7 @@
   </div>
   </span>
 </div>
-
-
-
-
-
-{# end heatmap #}
+</div>
 
 {% endblock content %}
 
