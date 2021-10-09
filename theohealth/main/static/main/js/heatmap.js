@@ -127,6 +127,7 @@ should be c1 - c6 in order
 */
 function colourChanger(readings)
   {
+	  console.log(readings)
   for (let r=0; r < 4; r++) {
     for (let i=0; i<thresholds.length; i++) {
 	if (readings[r] > thresholds[i].threshold) {
