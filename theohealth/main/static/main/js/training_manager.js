@@ -34,11 +34,11 @@ update_heatmap(200)
 
 var sensor_value = 200
 
-//  // uncomment to periodically change the heatmap
-// var interval = setInterval(() => {
-//   sensor_value = readingGen(sensor_value)
-//   update_heatmap(sensor_value)
-// }, 1000)
+  // uncomment to periodically change the heatmap
+ var interval = setInterval(() => {
+   sensor_value = readingGen(sensor_value)
+   update_heatmap(sensor_value)
+ }, 1000)
 
 
 

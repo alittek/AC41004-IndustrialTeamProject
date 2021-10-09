@@ -81,6 +81,16 @@ function modleload() {
     scene.add(UpperLeftLeg);
   })
 }
+
+
+var thresholds = [
+	{threshold: 100, mesh: new THREE.MeshStandardMaterial({ color: 0xc8d124 }) },
+	{threshold: 150, mesh: new THREE.MeshStandardMaterial({ color: 0xd1b424 }) },
+	{threshold: 200, mesh: new THREE.MeshStandardMaterial({ color: 0xd18624 }) },
+	{threshold: 250, mesh: new THREE.MeshStandardMaterial({ color: 0xd15e24 }) },
+	{threshold: 300, mesh: new THREE.MeshStandardMaterial({ color: 0xd14424 }) },
+	{threshold: 350, mesh: new THREE.MeshStandardMaterial({ color: 0xc8d124 }) },
+]
 /*
 There will be a colourChanger for each limb when the "reading" test data is replaced
 currently all limbs change to the same colour because we dont have 4 reading genorators 
