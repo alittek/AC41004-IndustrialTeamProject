@@ -8,16 +8,22 @@
     <h1>Overview of all clients</h1>
 </div>
 
+<div class="container">
 {% if athlete_list %}
-<ul>
 {% for athlete in athlete_list %}
-<li><a href="{% url 'main:athlete' athlete.id %}">{{ athlete }}</a></li>
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{ athlete }}</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="{% url 'main:athlete' athlete.id %}" class="btn btn-primary float-right">View</a>
+    </div>
+</div>
+
 {% endfor %}
-</ul>
 {% else %}
 <p>No athletes available</p>
 {% endif %}
-
+</div>
 {% endblock content %}
 
 
