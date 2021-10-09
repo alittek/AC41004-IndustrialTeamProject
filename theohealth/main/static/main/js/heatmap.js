@@ -16,7 +16,7 @@ var light = new THREE.AmbientLight(0xffffff, 0.5)
 var lightS = new THREE.DirectionalLight(0xffffff, 0.7)
 
 //make sure secen fits the window
-renderer.setSize(innerWidth, innerHeight)
+renderer.setSize(innerWidth*0.7, innerHeight*0.7)
 renderer.setPixelRatio(devicePixelRatio)
 // document.body.appendChild(renderer.domElement)
 document.getElementById("heatmap").appendChild(renderer.domElement)

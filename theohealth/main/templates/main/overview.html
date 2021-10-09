@@ -4,18 +4,49 @@
 
 {% block content %}
 
-<h1>This is the Overview page!!!</h1>
+<div class="heading">
+    <h1>Overview of all clients</h1>
+</div>
 
+<div class="container">
 {% if athlete_list %}
-<ul>
 {% for athlete in athlete_list %}
-<li><a href="{% url 'main:athlete' athlete.id %}">{{ athlete }}</a></li>
+<div class="row justify-content-center" style="margin-bottom: 20px;">
+<div class="card" style="width: 80%;">
+    <div class="card-body">
+      <h5 class="card-title">{{ athlete }}</h5>
+      <p class="card-text">
+        <table class="table">
+            <tbody>
+              <tr>
+                <th style="width: 30%;">Contact</th>
+                <td style="width: 70%;">{{athlete.contact_nb}}</th>
+              </tr>
+              <tr>
+                <th>Email</th>
+                <td>{{athlete.email}}</td>
+              </tr>
+              <tr>
+                <th>Phone</th>
+                <td>{{athlete.phone_nb}}</td>
+              </tr>
+              <tr>
+                <th>Injury</th>
+                <td>{{athlete.injury}}</td>
+              </tr>
+            </tbody>
+          </table> 
+      </p>
+      <a href="{% url 'main:athlete' athlete.id %}" class="btn btn-primary float-right">View</a>
+    </div>
+</div>
+</div>
+
 {% endfor %}
-</ul>
 {% else %}
 <p>No athletes available</p>
 {% endif %}
-
+</div>
 {% endblock content %}
 
 
