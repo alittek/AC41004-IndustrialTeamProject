@@ -4,17 +4,18 @@
 
 {% block content %}
 
-<h1>This is the Add Athlete page!!!</h1>
-
 <!-- form to enter details of a new client -->
 <!-- name, contact number, email, phone number, injury -->
-<div class="container" style="background-color: grey;">
+<div class="container">
+  <div class="row justify-content-center align-items-center">
     <!--Django Model Form-->
-    <h2 class="my-4">Add a new athlete</h2>
+    <h1 class="my-4">Add a new athlete</h1>
+    </div>
+    <div class="row justify-content-center align-items-center">
     <form method="post">
       {% csrf_token %}
           <table>{{ add_athlete.as_table }}</table>
-          <button class="btn btn-primary my-4" type="submit">Submit</button>
+          <button class="btn btn-primary my-4 float-right" type="submit">Submit</button>
     </form>   
     {% if messages %}
     <ul class="messages">
@@ -23,6 +24,7 @@
       {% endfor %}
     </ul>
     {% endif %}   
+    </div>
 </div>
 
 {% endblock content %}
