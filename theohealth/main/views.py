@@ -1,3 +1,6 @@
+import json
+import pandas as pd
+
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
@@ -114,6 +117,19 @@ def request_workout_details(request, workout_id):
         return HttpResponse(all_readings)
     else:
         return HttpResponse(":(")
+
+def workout(request):
+    readings = []
+    for i in range(1, 5):
+        # Must use path from the Python shell (manage.py), not from /main!
+        df = pd.read_csv('main/SensorTest-set2/SensorTest-sensor' + str(i) + '.csv')
+        values = []
+        # Zips the columns together so the time and value can be accessed together
+        [values.append(record) for record in zip(df.time, df.value)]
+        # Appends as sensor(num)
+        readings.append(values)
+
+    return HttpResponse(json.dumps(readings))
 
 def home(request):
     """
