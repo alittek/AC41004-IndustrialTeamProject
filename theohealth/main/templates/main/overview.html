@@ -16,7 +16,7 @@
     <div class="card-body">
       <h5 class="card-title">{{ athlete }}</h5>
       <p class="card-text">
-        <table class="table">
+        <table class="table w-auto">
             <tbody>
               <tr>
                 <th style="width: 30%;">Contact</th>
@@ -44,7 +44,9 @@
 
 {% endfor %}
 {% else %}
-<p>No athletes available</p>
+<div class="row justify-content-center">
+  <p>no athletes available</p>
+</div>
 {% endif %}
 </div>
 {% endblock content %}
