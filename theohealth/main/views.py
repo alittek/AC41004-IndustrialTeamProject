@@ -107,10 +107,13 @@ def post_athlete(request):
 
 # Workout details for the purpose of updating the heatmap
 def request_workout_details(request, workout_id):
-    workout = get_object_or_404(Workout, pk=workout_id)
-    all_readings = workout.readings_from_file()
-    context = {'all_readings': all_readings}
-    return HttpResponse(all_readings)
+    if Workout.objects.filter(pk=workout_id):
+        workout = Workout.objects.get(pk=workout_id)
+        all_readings = workout.readings_from_file()
+        context = {'all_readings': all_readings}
+        return HttpResponse(all_readings)
+    else:
+        return HttpResponse(":(")
 
 def home(request):
     """
