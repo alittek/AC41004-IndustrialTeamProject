@@ -90,9 +90,9 @@ def add_athlete(request, pk):
                 phone_nb = add_athlete_form.cleaned_data['phone_nb'],
                 injury = add_athlete_form.cleaned_data['injury'],
             )
-            messages.success(request, 'Athlete added successfully')
+            messages.success(request, 'athlete added successfully')
         else: 
-            messages.error(request, 'Error saving athlete')
+            messages.error(request, 'error saving athlete')
     
     add_athlete = AddAthleteForm()
     all_athletes = Athlete.objects.all()

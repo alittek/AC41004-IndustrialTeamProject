@@ -43,6 +43,10 @@ footer {
   margin-top: 70px;
 }
 
+.error {
+  color: #f36d21;
+}
+
 /*
  * Heatmap
  */
