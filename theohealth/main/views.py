@@ -50,8 +50,10 @@ class OverviewView(generic.ListView):
 
 # heatmap & info for one athlete
 def athlete(request, pk):
+    athlete = get_object_or_404(Athlete, pk=pk)
     context = {
         "foo" : "bar",
+        "athlete": athlete,
     }
     return render(request, 'main/athlete.html', context)
 
