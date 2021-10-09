@@ -70,9 +70,16 @@ function update() {
   reference_point = initial_reference_point + timer // set the reference point to be the time elapsed since the initial reference point
 
   while (isBufferInPast == true) {  // check if the buffer is before the reference point and if it is then move on to the next value
-    if (true) {
-      isBufferInPast
+    if (buffer[0][0] < reference_point) {
+      isBufferInPast = true
     }
+    else {
+      break
+    }
+
+    Reference_point = Reference_point + timer() // update reference point
+
+    buffer[0].shift()  // delete item at the top of the buffer so that the next item can be read in
   }
   
   new_reading = buffer[0][1]  // set the value at the most recent timestamp to be the new reading
