@@ -50,7 +50,7 @@ let buffer = []
 */
 function simple_loop() {
     for (var i = 0; i < buffer[0].length; i++) {
-      var current_reading = buffer[0].shift()
+      var current_reading = buffer[0].shift() // current reading = next time value
       console.log(current_reading)
      // update_heatmap(current_reading)
     }
@@ -99,15 +99,15 @@ function fetch_readings() {
   xHttp.onload = function() {
     buffer = JSON.parse(this.responseText)
     var simple_interval = setInterval(() => {
-      if (buffer.length > 0) {
+      if (buffer.length > 0) { // buffer has timestamps
         var current_reading = buffer[0].shift()
         console.log(current_reading)
-        update_heatmap(current_reading[1])
+        update_heatmap(current_reading[1]) // index 1 is value
       } else {
         clearInterval(simple_interval)
       }
 
-    }, 1000)
+    }, 1000) // 1000s milliseconds
     }
   xHttp.open("GET", "/request_workout_details/1", true) // initialise request
   xHttp.send() // send request
