@@ -52,6 +52,10 @@ controls.maxDistance = 8;
 scene.add(light)
 scene.add(lightS)
 
+var models = Array(4)
+for (let i=0; i < models.length; i++) {
+	models[i] = new THREE.Object3D()
+}
 //create the modles(all included for later use)
 var UpperRightLeg = new THREE.Object3D()
 var UpperLeftLeg = new THREE.Object3D()
@@ -59,51 +63,55 @@ var LowerRightLeg = new THREE.Object3D()
 var LowerLeftLeg = new THREE.Object3D()
 
 function modleload() {
-  //Lower left leg
+
+  // same with array
   loader.load('/static/main/3d_models/LowerL.gltf', function(gltf) {
-    LowerLeftLeg = gltf.scene.children.find((child) => child.name === "LowerLeft")
-    LowerLeftLeg.position.y = -3
-    scene.add(LowerLeftLeg);
+    models[0]  = gltf.scene.children.find((child) => child.name === "LowerLeft")
+    models[0].position.y = -3
+    scene.add(models[0]);
   })
   loader.load('/static/main/3d_models/LowerR.gltf', function(gltf) {
-    LowerRightLeg = gltf.scene.children.find((child) => child.name === "LowerRight")
-    LowerRightLeg.position.y = -3
-    scene.add(LowerRightLeg);
+    models[1] = gltf.scene.children.find((child) => child.name === "LowerRight")
+    models[1].position.y = -3
+    scene.add(models[1]);
   })
   loader.load('/static/main/3d_models/UpplerL.gltf', function(gltf) {
-    UpperRightLeg = gltf.scene.children.find((child) => child.name === "UpperLeft")
-    UpperRightLeg.position.y = -3
-    scene.add(UpperRightLeg);
+    models[2] = gltf.scene.children.find((child) => child.name === "UpperLeft")
+    models[2].position.y = -3
+    scene.add(models[2]);
   })
   loader.load('/static/main/3d_models/UpperR.gltf', function(gltf) {
-    UpperLeftLeg = gltf.scene.children.find((child) => child.name === "UpperRight")
-    UpperLeftLeg.position.y = -3
-    scene.add(UpperLeftLeg);
+    models[3] = gltf.scene.children.find((child) => child.name === "UpperRight")
+    models[3].position.y = -3
+    scene.add(models[3]);
   })
 }
+
+
+var thresholds = [
+	{threshold: 0, material: new THREE.MeshStandardMaterial({ color: 0xc8d124 }) },
+	{threshold: 300, material: new THREE.MeshStandardMaterial({ color: 0xd1b424 }) },
+	{threshold: 500, material: new THREE.MeshStandardMaterial({ color: 0xd18624 }) },
+	{threshold: 600, material: new THREE.MeshStandardMaterial({ color: 0xd15e24 }) },
+	{threshold: 700, material: new THREE.MeshStandardMaterial({ color: 0xd14424 }) },
+	{threshold: 900, material: new THREE.MeshStandardMaterial({ color: 0xc12424 }) },
+]
 /*
 There will be a colourChanger for each limb when the "reading" test data is replaced
 currently all limbs change to the same colour because we dont have 4 reading genorators 
 I have changed the order for the limbs to better show what the end product will be but they
 should be c1 - c6 in order
 */
-function colourChanger()
+function colourChanger(readings)
   {
-    console.log(reading)
-   switch(reading) {
-    case 300 : {LowerLeftLeg.material = c3, LowerRightLeg.material = c1, UpperLeftLeg.material = c2, UpperRightLeg.material = c1}
-    break
-    case 500 : {LowerLeftLeg.material = c3, LowerRightLeg.material = c4, UpperLeftLeg.material = c2, UpperRightLeg.material = c2}
-    break
-    case 600 : {LowerLeftLeg.material = c4, LowerRightLeg.material = c4, UpperLeftLeg.material = c2, UpperRightLeg.material = c1}
-    break
-    case 700 : {LowerLeftLeg.material = c2, LowerRightLeg.material = c4, UpperLeftLeg.material = c1, UpperRightLeg.material = c3}
-    break
-    case 800 : {LowerLeftLeg.material = c6, LowerRightLeg.material = c5, UpperLeftLeg.material = c3, UpperRightLeg.material = c3}
-    break
-    case 900 : {LowerLeftLeg.material = c5, LowerRightLeg.material = c6, UpperLeftLeg.material = c2, UpperRightLeg.material = c1}
-    break
-   }
+	  console.log(readings)
+  for (let r=0; r < 4; r++) {
+    for (let i=0; i<thresholds.length; i++) {
+	if (readings[r] > thresholds[i].threshold) {
+		models[r].material = thresholds[i].material
+	}
+    }
+  }
   }
 
 //load modles
@@ -117,9 +125,8 @@ function animate() {
 /*
  * updates the heatmap to the value specified in new_reading
  */
-export function update_heatmap(new_reading) {
+export function update_heatmap(readings) {
   requestAnimationFrame(animate)
-  reading = new_reading
-  colourChanger()
+  colourChanger(readings)
 }
 
