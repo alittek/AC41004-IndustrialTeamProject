@@ -31,11 +31,6 @@
   border-radius: 25px !important;
 }
 
-table {
-  table-layout: fixed;
-  word-wrap: break-word;
-}
-
 footer {
   font-weight: bold;
   margin-top: 70px;
