@@ -34,11 +34,13 @@ update_heatmap(200)
 
 var sensor_value = 200
 
-//  // uncomment to periodically change the heatmap
-// var interval = setInterval(() => {
-//   sensor_value = readingGen(sensor_value)
-//   update_heatmap(sensor_value)
-// }, 1000)
+/*
+  // uncomment to periodically change the heatmap
+ var interval = setInterval(() => {
+   sensor_value = readingGen(sensor_value)
+   update_heatmap([sensor_value, sensor_value-100, sensor_value+200, sensor_value+300])
+ }, 1000)
+ */
 
 
 
@@ -98,19 +100,24 @@ function fetch_readings() {
   const xHttp = new XMLHttpRequest()
   xHttp.onload = function() {
     buffer = JSON.parse(this.responseText)
+	  console.log(buffer)
     var simple_interval = setInterval(() => {
-      if (buffer.length > 0) { // buffer has timestamps
-        var current_reading = buffer[0].shift()
-        console.log(current_reading)
-        update_heatmap(current_reading[1]) // index 1 is value
+	
+    var readings = Array(4)
+    for (var s=0; s < buffer.length; s++) {
+      if (buffer[s].length > 0) { // buffer has timestamps
+	 
+         readings[s] = buffer[s].shift()[1]
       } else {
         clearInterval(simple_interval)
       }
+    }
+    update_heatmap([readings[0], readings[1], readings[2], readings[3]])
 
     }, 1000) // 1000s milliseconds
     }
-  xHttp.open("GET", "/request_workout_details/1", true) // initialise request
+  xHttp.open("GET", "/workout", true) // initialise request
   xHttp.send() // send request
 }
 
-// fetch_readings()
+fetch_readings()
