@@ -18,9 +18,9 @@
   color: white;
 }
 
-table {
-  table-layout: fixed;
-  word-wrap: break-word;
+.content {
+  max-width: 1400px;
+  margin: auto;
 }
 
 .btn {
@@ -31,15 +31,6 @@ table {
   border-radius: 25px !important;
 }
 
-#captureBtn {
-  color: white; 
-}
-
-.content {
-  max-width: 1400px;
-  margin: auto;
-}
-
 footer {
   font-weight: bold;
   margin-top: 70px;
@@ -48,6 +39,22 @@ footer {
 .error {
   color: #f36d21;
 }
+
+
+
+/*
+ * athlete page
+ */
+#captureBtn {
+  color: white; 
+}
+
+li.list-group-item {
+  background-color: white !important;
+  word-wrap: break-word;
+}
+
+
 
 /*
  * Heatmap

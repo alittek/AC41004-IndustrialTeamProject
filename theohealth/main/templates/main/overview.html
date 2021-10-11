@@ -15,8 +15,33 @@
 <div class="card" style="width: 80%;">
     <div class="card-body">
       <h5 class="card-title">{{ athlete }}</h5>
-      <p class="card-text">
-        <table class="table w-auto">
+      <hr/>
+      <hr/>
+      <p class="card-text overflow-auto">
+        <div class="row">
+          <div class="col-12 col-sm-3 col-lg-2">Contact: </div>
+          <div class="col-12 col-sm-9 col-lg-10">{{athlete.contact_nb}}</div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-12 col-sm-3 col-lg-2"><i class="bi bi-envelope-fill"></i> Email: </div>
+          <div class="col-12 col-sm-9 col-lg-10">{{athlete.email}}</div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-12 col-sm-3 col-lg-2"><i class="bi bi-telephone-fill"></i> Phone: </div>
+          <div class="col-12 col-sm-9 col-lg-10">{{athlete.phone_nb}}</div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-12 col-sm-3 col-lg-2">Injury: </div>
+          <div class="col-12 col-sm-9 col-lg-10">{{athlete.injury}}</div>
+        </div>
+
+
+
+          <!--
+          <table class="table table-responsive w-auto">
             <tbody>
               <tr>
                 <th style="width: 30%;">Contact</th>
@@ -36,6 +61,11 @@
               </tr>
             </tbody>
           </table> 
+          -->
+
+
+
+
       </p>
       <a href="{% url 'main:athlete' athlete.id %}" class="btn btn-primary float-right">View</a>
     </div>
