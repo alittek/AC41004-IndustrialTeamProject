@@ -93,17 +93,17 @@ function update() {
 }
 
 /**
- * highest_reading()
+ * get_highest_reading()
  * 
  * finds and displays the highest reading from a workout
  */
 function get_highest_reading() {
-  var max_reading = 0
-  var current_reading = 0
+  var max_reading = 0   // 
+  var current_reading = 0   // a
 
-  for (var i = 0; i < buffer[0].length; i++) {
-    current_reading = buffer[0].shift() // current reading = next time value
-    if (max_reading < current_reading) {
+  for (var i = 0; i < buffer[0].length; i++) {   // loop through each item in the buffer
+    current_reading = buffer[0].shift()   // current reading = next time value
+    if (max_reading < current_reading) {  // 
       max_reading = current_reading
       console.log(max_reading)
     }
