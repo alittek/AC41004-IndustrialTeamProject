@@ -17,14 +17,25 @@ Athlete.objects.create(pk=3,therapist=t2, first_name="Paul", last_name="Hoxley",
 usert1 = User.objects.create_user(username="joe", password="password")
 usera1 = User.objects.create_user(username="bill", password="password")
 content_type = ContentType.objects.get_for_model(User)
-permission_is_therapist = Permission.objects.get(
-    codename='is_therapist',
-    content_type=content_type,
-)
+try:
+    permission_is_therapist = Permission.objects.get(
+        codename='is_therapist',
+        content_type=content_type,
+    )
 
-permission_is_athlete = Permission.objects.get(
-    codename='is_athlete',
-    content_type=content_type,
-)
+    permission_is_athlete = Permission.objects.get(
+        codename='is_athlete',
+        content_type=content_type,
+    )
+except:
+    permission_is_therapist = Permission.objects.create(
+        codename='is_therapist',
+        content_type=content_type,
+    )
+
+    permission_is_athlete = Permission.objects.create(
+        codename='is_athlete',
+        content_type=content_type,
+    )
 usert1.user_permissions.add(permission_is_therapist)
 usera1.user_permissions.add(permission_is_athlete)
