@@ -102,14 +102,14 @@ function get_highest_reading() {
   var current_reading = 0
 
   for (var i = 0; i < buffer[0].length; i++) {
-    if {
-
+    current_reading = buffer[0].shift() // current reading = next time value
+    if (max_reading < current_reading) {
+      max_reading = current_reading
+      console.log(max_reading)
     }
     else {
-      
+      console.log(max_reading)
     }    
-    current_reading = buffer[0].shift() // current reading = next time value
-    
   }
 
 }
