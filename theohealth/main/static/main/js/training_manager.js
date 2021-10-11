@@ -114,7 +114,7 @@ function fetch_readings() {
     }
     update_heatmap([readings[0], readings[1], readings[2], readings[3]])
 
-    }, 100) // 1000s milliseconds
+    }, 500)
     }
   xHttp.open("GET", "/workout", true) // initialise request
   xHttp.send() // send request
