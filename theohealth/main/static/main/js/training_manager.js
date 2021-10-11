@@ -98,17 +98,17 @@ function update() {
  * finds and displays the highest reading from a workout
  */
 function get_highest_reading() {
-  var max_reading = 0   // 
-  var current_reading = 0   // a
+  var max_reading = 0   // stores the highest reading from the sensor
+  var current_reading = 0   // stores the current reading from the buffer
 
   for (var i = 0; i < buffer[0].length; i++) {   // loop through each item in the buffer
     current_reading = buffer[0].shift()   // current reading = next time value
-    if (max_reading < current_reading) {  // 
-      max_reading = current_reading
-      console.log(max_reading)
+    if (max_reading < current_reading) {  // check if the current reading is higher than the highest reading
+      max_reading = current_reading   // set the current reading as the new highest reading
+      console.log(max_reading)  // send the max reading to the console
     }
     else {
-      console.log(max_reading)
+      console.log(max_reading)  // send the max reading to the console
     }    
   }
 
