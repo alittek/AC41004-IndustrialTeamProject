@@ -10,6 +10,16 @@
 
 <div class="container">
 {% if athlete_list %}
+<div class="container" style="width: 85%;">
+<div class="row" style="margin-bottom: 20px;">
+  <div class="col-12 col-sm-9 col-lg-10"> 
+    <input type="search" placeholder="Search athletes..." class="form-control">
+  </div>
+  <div class="col-12 col-sm-3 col-lg-2"> 
+    <a href="" class="btn btn-primary float-right"><i class="bi bi-search text-white"></i></a>
+  </div>
+  </div>
+</div>
 {% for athlete in athlete_list %}
 <div class="row justify-content-center" style="margin-bottom: 20px;">
 <div class="card" style="width: 80%;">
@@ -39,49 +49,22 @@
         </div>
 
 
-
-          <!--
-          <table class="table table-responsive w-auto">
-            <tbody>
-              <tr>
-                <th style="width: 30%;">Contact</th>
-                <td style="width: 70%;">{{athlete.contact_nb}}</th>
-              </tr>
-              <tr>
-                <th><i class="bi bi-envelope-fill"></i> Email</th>
-                <td>{{athlete.email}}</td>
-              </tr>
-              <tr>
-                <th><i class="bi bi-telephone-fill"></i> Phone</th>
-                <td>{{athlete.phone_nb}}</td>
-              </tr>
-              <tr>
-                <th>Injury</th>
-                <td>{{athlete.injury}}</td>
-              </tr>
-            </tbody>
-          </table> 
-          -->
-
-
-
-
       </p>
       <a href="{% url 'main:athlete' athlete.id %}" class="btn btn-primary float-right">View</a>
     </div>
 </div>
 </div>
-
 {% endfor %}
+</div>
 {% else %}
 <div class="row justify-content-center">
   <p>no athletes available</p>
 </div>
 {% endif %}
-</div>
 {% endblock content %}
 
 
 
 {% block javascript %}
+
 {% endblock javascript %}
