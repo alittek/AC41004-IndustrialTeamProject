@@ -68,7 +68,7 @@ class OverviewView(generic.ListView):
         # filtering athletes
         if search_param:
             # the "Q" is just an or
-            return Athlete.objects.filter(Q(first_name__icontains=search_param) | Q(last_name__icontains=search_param))
+            return Athlete.objects.filter(Q(first_name__icontains=search_param) | Q(last_name__icontains=search_param)).order_by('last_name')
         else: # all Athletes
             return Athlete.objects.all().order_by('last_name')
         
