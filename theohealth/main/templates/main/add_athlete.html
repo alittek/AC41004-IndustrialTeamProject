@@ -11,14 +11,16 @@
 <div class="container">
   <div class="row justify-content-center">
     <!--Django Model Form-->
-    <h1 class="my-4">New Client</h1>
+    <span data-toggle='tooltip' title='add a new client to your account'>
+      <h1 class="my-4">New Client</h1>
+    </span>
   </div>
   <div class="row justify-content-center">
     <form method="post" style="width: 600px;">
       {% csrf_token %}
-        <table>{{ add_athlete|crispy }}</table>
-        <button class="btn btn-primary my-4 float-right" type="submit">Submit</button>
-    </form>  
+          <table>{{ add_athlete|crispy }}</table>
+        <button class="btn btn-primary my-4 float-right" type="submit"data-toggle="tooltip" data-placement="left" title="add a new client">Submit</button>
+    </form>
   </div>
   <div class="row justify-content-center">
     {% if messages %}
@@ -36,4 +38,10 @@
 
 
 {% block javascript %}
+<!--initialize all tooltips-->
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
 {% endblock javascript %}
