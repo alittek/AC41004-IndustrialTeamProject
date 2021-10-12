@@ -48,12 +48,14 @@ user_fiona = User.objects.create_user(username="fiona", password="password")
 user_paul = User.objects.create_user(username="paul", password="password")
 user_kenna = User.objects.create_user(username="kenna", password="password")
 user_skye = User.objects.create_user(username="skye", password="password")
+user_theresa = User.objects.create_user(username="theresa", password="password")
 
 user_bill.user_permissions.add(permission_is_athlete)
 user_fiona.user_permissions.add(permission_is_athlete)
 user_paul.user_permissions.add(permission_is_athlete)
 user_kenna.user_permissions.add(permission_is_athlete)
 user_skye.user_permissions.add(permission_is_athlete)
+user_theresa.user_permissions.add(permission_is_athlete)
 
 Athlete.objects.create(
         pk=1,
@@ -109,4 +111,15 @@ Athlete.objects.create(
         phone_nb="8302984392", 
         injury="Left hamstring injury from surfing", 
         auth_user=user_skye)
+
+Athlete.objects.create(
+        pk=6,
+        therapist=therapist_annabel, 
+        first_name="Theresa", 
+        last_name="Tefal", 
+        contact_nb="14122220-240", 
+        email="customer-support@tefal.org", 
+        phone_nb="8302984392", 
+        injury="Left hamstring injury from a fan accident in Taiwan", 
+        auth_user=user_theresa)
 
