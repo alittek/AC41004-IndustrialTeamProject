@@ -63,7 +63,7 @@ class OverviewView(generic.ListView):
         """
         Return the list of athletes that are registered with the logged-in physiotherapist
         """
-        return Athlete.objects.all()
+        return Athlete.objects.all().order_by('last_name')
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
