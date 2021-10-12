@@ -5,7 +5,6 @@
 
 
 {% block content %}
-
 <!-- form to enter details of a new client -->
 <!-- name, contact number, email, phone number, injury -->
 <div class="container">
@@ -14,6 +13,7 @@
     <h1 class="my-4">New Client</h1>
   </div>
   <div class="row justify-content-center">
+    <!-- get form from forms.py -->
     <form method="post" style="width: 600px;">
       {% csrf_token %}
       <div class="form-row">
@@ -44,6 +44,7 @@
     </form>
   </div>
   <div class="row justify-content-center">
+    <!-- print messages if available -->
     {% if messages %}
     <ul class="messages">
       {% for message in messages %}
@@ -53,7 +54,6 @@
     {% endif %}   
   </div>
 </div>
-
 {% endblock content %}
 
 
