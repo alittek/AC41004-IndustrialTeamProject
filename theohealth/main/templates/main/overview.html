@@ -9,7 +9,8 @@
 </div>
 
 <div class="container">
-  {% if athlete_list %}
+  {% if athlete_list %} <!-- check if clients available -->
+  <!-- search bar to find individual client -->
   <div class="container" style="width: 85%;">
     <div class="row" style="margin-bottom: 20px;">
       <form method="get">
@@ -22,8 +23,9 @@
       </form>
     </div>
   </div>
-  {% for athlete in athlete_list %}
+  {% for athlete in athlete_list %} <!-- iterate through list and print info for each one -->
   <div class="row justify-content-center" style="margin-bottom: 20px;">
+  <!-- card for info on one athlete -->
     <div class="card" style="width: 80%;">
       <div class="card-body">
         <h5 class="card-title">{{ athlete }}</h5>
@@ -34,35 +36,34 @@
             <div class="col-12 col-sm-3 col-lg-2">Contact: </div>
             <div class="col-12 col-sm-9 col-lg-10">{{athlete.contact_nb}}</div>
           </div>
-          <hr />
+          <hr/>
           <div class="row">
             <div class="col-12 col-sm-3 col-lg-2"><i class="bi bi-envelope-fill"></i> Email: </div>
             <div class="col-12 col-sm-9 col-lg-10">{{athlete.email}}</div>
           </div>
-          <hr />
+          <hr/>
           <div class="row">
             <div class="col-12 col-sm-3 col-lg-2"><i class="bi bi-telephone-fill"></i> Phone: </div>
             <div class="col-12 col-sm-9 col-lg-10">{{athlete.phone_nb}}</div>
           </div>
-          <hr />
+          <hr/>
           <div class="row">
             <div class="col-12 col-sm-3 col-lg-2">Injury: </div>
             <div class="col-12 col-sm-9 col-lg-10">{{athlete.injury}}</div>
           </div>
-
-
         </p>
-        <a href="{% url 'main:athlete' athlete.id %}" class="btn btn-primary float-right">View</a>
+        <a href="{% url 'main:athlete' athlete.id %}" class="btn btn-primary float-right" data-toggle="tooltip" data-placement="left" title="view heatmap and infographics">View</a>
       </div>
     </div>
   </div>
   {% endfor %}
-</div>
-{% else %}
-<div class="row justify-content-center">
-  <p>no athletes available</p>
-</div>
+
+{% else %} <!-- if no athletes are available -->
+  <div class="row justify-content-center">
+    <p>no athletes available</p>
+  </div>
 {% endif %}
+</div>
 {% endblock content %}
 
 
@@ -74,5 +75,12 @@
     // add user input to the q GET parameter
     window.location.replace("/overview/1?q=" + query)
   }
+</script>
+
+<!--initialize all tooltips-->
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
 </script>
 {% endblock javascript %}
