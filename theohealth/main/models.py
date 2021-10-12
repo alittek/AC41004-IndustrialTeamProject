@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 import json
 import os
@@ -9,6 +10,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 class Therapist(models.Model):
+    auth_user = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, default='')
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
 
@@ -16,6 +18,7 @@ class Therapist(models.Model):
         return self.first_name + " " + self.last_name
 
 class Athlete(models.Model):
+    auth_user = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, default='')
     therapist = models.ForeignKey(Therapist, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=64, default='')
     last_name = models.CharField(max_length=64, default= '')

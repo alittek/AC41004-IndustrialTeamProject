@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<div class="container">
+<h1>New user added!</h1>
+	{% if username and password %}
+	<p>username: {{ username }}</p>
+	<p>password: {{ password }}</p>
+	<p>Please send the username and password to the athlete and ask them to log in with their new credentials</p>
+	<a class="btn btn-primary" href="{% url 'main:add_athlete' 1 %}">add another athlete</a>
+{% else %}
+	<p>Something went wrong, please try again</p>
+{% endif %}
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}
