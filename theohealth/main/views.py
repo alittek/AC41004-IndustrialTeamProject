@@ -18,14 +18,14 @@ from django.urls import reverse
 from main.forms import AddAthleteForm, LoginForm
 from main.models import Athlete, Therapist, Workout, SensorReading
 
-# index page
+# index page, redirects to home
 def index(request):
     context = {
             "foo" : "bar",
             "session": request.session,
             "user": request.user,
     }
-    return render(request, 'main/index.html', context)
+    return home(request)
 
 # login page
 def login_form(request):
