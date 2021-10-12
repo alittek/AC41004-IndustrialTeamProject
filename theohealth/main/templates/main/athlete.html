@@ -28,12 +28,32 @@
     <h1>HEAT MAP</h1>
   </div>
 </div>
+
+<!-- TODO -->
+<!-- time goal input-->
+<!-- enter number for timer countdown-->
+
+
 <!-- start capture button -->
 <div class="row justify-content-center">
-  <div class="col text-center">
-    <button class="btn btn-primary my-4" type="submit"><i class="bi bi-play-fill" id="captureBtn"> Start Capture</i></button>
+  <span id="minutes"></span>:<span id="seconds"></span>
+</div>
+<div class="row justify-content-center"></div>
+  <div class="col text-center"> 
+      <button class="btn btn-primary my-4" onclick="startTimer()" type="button"><i class="bi bi-play-fill bi-timer"></i> Start</button>
+      <button class="btn btn-primary my-4" onclick="stopCount()" type="submit"><i class="bi bi-stop-fill bi-timer"></i> Stop</button>
+      <button class="btn btn-primary my-4" onclick="stopCount()" type="submit"><i class=""></i> Reset</button>
   </div>
 </div>
+
+<!--  -->
+
+
+<!-- workout timer 
+<div class="row justify-content-center">
+  <span id="minutes"></span>:<span id="seconds"></span>
+</div>
+-->
 
 <!-- pop up messages -->
 <!-- Button trigger modal -->
@@ -82,9 +102,47 @@
 
 
 
-<!-- TODO: motivational messages pop up -->
+<!-- timer 
 <script>
+  $('#start-timer-btn').on("click", function() {
+  var sec = 0;
+    function pad ( val ) { return val > 9 ? val : "0" + val; }
+    setInterval( function(){
+        $("#seconds").html(pad(++sec%60));
+        $("#minutes").html(pad(parseInt(sec/60,10)));
+    }, 1000);
+  })
 </script>
+-->
+
+
+<script>
+  var c=0;
+  var timer;
+  var timer_on=0;
+  
+  // start timer
+  function startTimer()
+  {
+  if (!timer_on)
+    {
+    timer_on = 1;
+    var sec = 0;
+    function pad ( val ) { return val > 9 ? val : "0" + val; }
+    timer = setInterval( function(){
+        $("#seconds").html(pad(++sec%60));
+        $("#minutes").html(pad(parseInt(sec/60,10)));
+    }, 1000);
+    }
+  }
+  
+  // stop timer
+  function stopCount()
+  {
+    clearInterval(timer);
+    timer_on = 0;
+  }
+  </script>
 
 
 
