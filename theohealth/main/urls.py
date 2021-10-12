@@ -13,4 +13,5 @@ urlpatterns = [
         path('post_athlete/', views.post_athlete, name="past_athlete"),
         path('request_workout_details/<int:workout_id>', views.request_workout_details, name="request_workout_details"),
         path('workout', views.workout, name='workout'),
+        path('access-restricted', views.access_restricted, name="access-restricted")
         ]

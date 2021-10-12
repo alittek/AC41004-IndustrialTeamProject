@@ -66,6 +66,8 @@ class OverviewView(generic.ListView):
         user = self.request.user
         if user.has_perm("auth.is_therapist"):
             return Athlete.objects.filter(therapist__auth_user=user).order_by('last_name')
+        else:
+            return HttpResponseRedirect('main:access-restricted')
 
     def get_context_data(self, **kwargs):
         """
@@ -78,8 +80,10 @@ class OverviewView(generic.ListView):
 # heatmap & info for one athlete
 def athlete(request, pk):
     athlete = get_object_or_404(Athlete, pk=pk)
-    if not request.user.has_perm("auth.is_therapist") and athlete.auth_user != request.user:
-        return HttpResponseRedirect(reverse("main:home"))
+    if request.user.has_perm("auth.is_therapist") and not athlete.therapist.auth_user == request.user:
+        return HttpResponseRedirect(reverse("main:access-restricted"))
+    elif not request.user.has_perm("auth.is_therapist") and athlete.auth_user != request.user:
+        return HttpResponseRedirect(reverse("main:access-restricted"))
     context = {
         "foo" : "bar",
         "athlete": athlete,
@@ -152,3 +156,6 @@ def home(request):
         return HttpResponseRedirect(reverse('main:athlete', kwargs={'pk': pk}))
     else:
         return HttpResponseRedirect(reverse('main:login'))
+
+def access_restricted(request):
+    return HttpResponse("you don't have access to the requested resource")
