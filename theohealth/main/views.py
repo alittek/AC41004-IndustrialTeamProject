@@ -78,6 +78,8 @@ class OverviewView(generic.ListView):
 # heatmap & info for one athlete
 def athlete(request, pk):
     athlete = get_object_or_404(Athlete, pk=pk)
+    if not request.user.has_perm("auth.is_therapist") and athlete.auth_user != request.user:
+        return HttpResponseRedirect(reverse("main:home"))
     context = {
         "foo" : "bar",
         "athlete": athlete,
@@ -146,6 +148,7 @@ def home(request):
     if request.user.has_perm('auth.is_therapist'):
         return HttpResponseRedirect(reverse('main:overview', kwargs={'pk': 1}))
     elif request.user.has_perm('auth.is_athlete'):
-        return HttpResponseRedirect(reverse('main:athlete', kwargs={'pk': 1}))
+        pk = Athlete.objects.get(auth_user=request.user).id
+        return HttpResponseRedirect(reverse('main:athlete', kwargs={'pk': pk}))
     else:
         return HttpResponseRedirect(reverse('main:login'))
