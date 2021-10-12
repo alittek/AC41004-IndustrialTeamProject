@@ -66,7 +66,11 @@ class OverviewView(generic.ListView):
         user = self.request.user
         if user.has_perm("auth.is_therapist"):
             return Athlete.objects.filter(therapist__auth_user=user).order_by('last_name')
+
     def get_context_data(self, **kwargs):
+        """
+        update the context data to include the user object
+        """
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
         return context
