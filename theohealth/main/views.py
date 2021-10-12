@@ -1,6 +1,7 @@
 import json
 import pandas as pd
 
+from django.db.models import Q
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
@@ -63,7 +64,14 @@ class OverviewView(generic.ListView):
         """
         Return the list of athletes that are registered with the logged-in physiotherapist
         """
-        return Athlete.objects.all().order_by('last_name')
+        search_param = self.request.GET.get("q")
+        # filtering athletes
+        if search_param:
+            # the "Q" is just an or
+            return Athlete.objects.filter(Q(first_name__icontains=search_param) | Q(last_name__icontains=search_param)).order_by('last_name')
+        else: # all Athletes
+            return Athlete.objects.all().order_by('last_name')
+        
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user

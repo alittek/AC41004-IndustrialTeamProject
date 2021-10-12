@@ -5,83 +5,82 @@
 {% block content %}
 
 <div class="heading">
-    <h1>Overview of all clients</h1>
+  <h1>Overview of all clients</h1>
 </div>
 
 <div class="container">
-{% if athlete_list %}
-{% for athlete in athlete_list %}
-<div class="row justify-content-center" style="margin-bottom: 20px;">
-<div class="card" style="width: 80%;">
-    <div class="card-body">
-      <h5 class="card-title">{{ athlete }}</h5>
-      <hr/>
-      <hr/>
-      <p class="card-text overflow-auto">
-        <div class="row">
-          <div class="col-12 col-sm-3 col-lg-2">Contact: </div>
-          <div class="col-12 col-sm-9 col-lg-10">{{athlete.contact_nb}}</div>
+  {% if athlete_list %} <!-- check if clients available -->
+  <!-- search bar to find individual client -->
+  <div class="container" style="width: 85%;">
+    <div class="row" style="margin-bottom: 20px;">
+      <form method="get">
+        <div class="col-12 col-sm-9 col-lg-10">
+          <input type="search" placeholder="Search athletes..." class="form-control" id="q" name="q">
         </div>
-        <hr/>
-        <div class="row">
-          <div class="col-12 col-sm-3 col-lg-2"><i class="bi bi-envelope-fill"></i> Email: </div>
-          <div class="col-12 col-sm-9 col-lg-10">{{athlete.email}}</div>
+        <div class="col-12 col-sm-3 col-lg-2">
+          <a onclick="search_athlete()" type="submit" class="btn btn-primary float-right"><i class="bi bi-search text-white"></i></a>
         </div>
-        <hr/>
-        <div class="row">
-          <div class="col-12 col-sm-3 col-lg-2"><i class="bi bi-telephone-fill"></i> Phone: </div>
-          <div class="col-12 col-sm-9 col-lg-10">{{athlete.phone_nb}}</div>
-        </div>
-        <hr/>
-        <div class="row">
-          <div class="col-12 col-sm-3 col-lg-2">Injury: </div>
-          <div class="col-12 col-sm-9 col-lg-10">{{athlete.injury}}</div>
-        </div>
-
-
-
-          <!--
-          <table class="table table-responsive w-auto">
-            <tbody>
-              <tr>
-                <th style="width: 30%;">Contact</th>
-                <td style="width: 70%;">{{athlete.contact_nb}}</th>
-              </tr>
-              <tr>
-                <th><i class="bi bi-envelope-fill"></i> Email</th>
-                <td>{{athlete.email}}</td>
-              </tr>
-              <tr>
-                <th><i class="bi bi-telephone-fill"></i> Phone</th>
-                <td>{{athlete.phone_nb}}</td>
-              </tr>
-              <tr>
-                <th>Injury</th>
-                <td>{{athlete.injury}}</td>
-              </tr>
-            </tbody>
-          </table> 
-          -->
-
-
-
-
-      </p>
-      <a href="{% url 'main:athlete' athlete.id %}" class="btn btn-primary float-right">View</a>
+      </form>
     </div>
-</div>
-</div>
+  </div>
+  {% for athlete in athlete_list %} <!-- iterate through list and print info for each one -->
+  <div class="row justify-content-center" style="margin-bottom: 20px;">
+  <!-- card for info on one athlete -->
+    <div class="card" style="width: 80%;">
+      <div class="card-body">
+        <h5 class="card-title">{{ athlete }}</h5>
+        <hr />
+        <hr />
+        <p class="card-text overflow-auto">
+          <div class="row">
+            <div class="col-12 col-sm-3 col-lg-2">Contact: </div>
+            <div class="col-12 col-sm-9 col-lg-10">{{athlete.contact_nb}}</div>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-12 col-sm-3 col-lg-2"><i class="bi bi-envelope-fill"></i> Email: </div>
+            <div class="col-12 col-sm-9 col-lg-10">{{athlete.email}}</div>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-12 col-sm-3 col-lg-2"><i class="bi bi-telephone-fill"></i> Phone: </div>
+            <div class="col-12 col-sm-9 col-lg-10">{{athlete.phone_nb}}</div>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-12 col-sm-3 col-lg-2">Injury: </div>
+            <div class="col-12 col-sm-9 col-lg-10">{{athlete.injury}}</div>
+          </div>
+        </p>
+        <a href="{% url 'main:athlete' athlete.id %}" class="btn btn-primary float-right" data-toggle="tooltip" data-placement="left" title="view heatmap and infographics">View</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 
-{% endfor %}
-{% else %}
-<div class="row justify-content-center">
-  <p>no athletes available</p>
-</div>
+{% else %} <!-- if no athletes are available -->
+  <div class="row justify-content-center">
+    <p>no athletes available</p>
+  </div>
 {% endif %}
 </div>
 {% endblock content %}
 
 
-
+<!-- search for athlete -->
 {% block javascript %}
+<script>
+  function search_athlete() {
+    var query = document.getElementById("q").value
+    // add user input to the q GET parameter
+    window.location.replace("/overview/1?q=" + query)
+  }
+</script>
+
+<!--initialize all tooltips-->
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
 {% endblock javascript %}
