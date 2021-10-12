@@ -1,6 +1,8 @@
 import json
 import pandas as pd
 
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
@@ -55,8 +57,9 @@ def logout_user(request):
     return HttpResponseRedirect(reverse("main:login"))
 
 # overview all athletes page
-class OverviewView(generic.ListView):
+class OverviewView(PermissionRequiredMixin, generic.ListView):
     template_name = 'main/overview.html'
+    permission_required = ('auth.is_therapist')
     context_object_name = 'athlete_list'
 
     def get_queryset(self):
@@ -64,10 +67,7 @@ class OverviewView(generic.ListView):
         Return the list of athletes that are registered with the logged-in physiotherapist
         """
         user = self.request.user
-        if user.has_perm("auth.is_therapist"):
-            return Athlete.objects.filter(therapist__auth_user=user).order_by('last_name')
-        else:
-            return HttpResponseRedirect('main:access-restricted')
+        return Athlete.objects.filter(therapist__auth_user=user).order_by('last_name')
 
     def get_context_data(self, **kwargs):
         """
