@@ -2,12 +2,16 @@ import json
 import pandas as pd
 
 from django.db.models import Q
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.template import RequestContext
 from django.urls import reverse
 
@@ -56,8 +60,9 @@ def logout_user(request):
     return HttpResponseRedirect(reverse("main:login"))
 
 # overview all athletes page
-class OverviewView(generic.ListView):
+class OverviewView(PermissionRequiredMixin, generic.ListView):
     template_name = 'main/overview.html'
+    permission_required = ('auth.is_therapist')
     context_object_name = 'athlete_list'
 
     def get_queryset(self):
@@ -65,14 +70,20 @@ class OverviewView(generic.ListView):
         Return the list of athletes that are registered with the logged-in physiotherapist
         """
         search_param = self.request.GET.get("q")
+        user = self.request.user
         # filtering athletes
         if search_param:
             # the "Q" is just an or
-            return Athlete.objects.filter(Q(first_name__icontains=search_param) | Q(last_name__icontains=search_param)).order_by('last_name')
+            return Athlete.objects.filter(therapist__auth_user=user).filter(Q(first_name__icontains=search_param) | Q(last_name__icontains=search_param)).order_by('last_name')
         else: # all Athletes
-            return Athlete.objects.all().order_by('last_name')
+            return Athlete.objects.filter(therapist__auth_user=user).order_by('last_name')
         
+        #return Athlete.objects.filter(therapist__auth_user=user).order_by('last_name')
+
     def get_context_data(self, **kwargs):
+        """
+        update the context data to include the user object
+        """
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
         return context
@@ -80,6 +91,10 @@ class OverviewView(generic.ListView):
 # heatmap & info for one athlete
 def athlete(request, pk):
     athlete = get_object_or_404(Athlete, pk=pk)
+    if request.user.has_perm("auth.is_therapist") and not athlete.therapist.auth_user == request.user:
+        return HttpResponseRedirect(reverse("main:access-restricted"))
+    elif not request.user.has_perm("auth.is_therapist") and athlete.auth_user != request.user:
+        return HttpResponseRedirect(reverse("main:access-restricted"))
     context = {
         "foo" : "bar",
         "athlete": athlete,
@@ -87,13 +102,22 @@ def athlete(request, pk):
     return render(request, 'main/athlete.html', context)
 
 # page to add a new athlete
+@permission_required("auth.is_therapist")
 def add_athlete(request, pk):
+    context = {}
     if request.method == "POST" :
         add_athlete_form = AddAthleteForm(request.POST)   
         if add_athlete_form.is_valid():
-            default_therapist = Therapist.objects.get(pk=1)
+            therapist = Therapist.objects.get(auth_user=request.user)
+            username = add_athlete_form.cleaned_data['first_name']
+            # if there's already a user with that username, add the primary key of the newly created user)
+            if User.objects.filter(username__startswith=username) is not None:
+                username += str(User.objects.all().order_by('-pk')[0].id + 1)
+            new_auth_user = User.objects.create_user(username=username, password="password")
+            new_auth_user.user_permissions.add(Permission.objects.get(codename='is_athlete', content_type=ContentType.objects.get_for_model(User)))
             new_athlete = Athlete.objects.create(
-                therapist = default_therapist,
+                therapist = therapist,
+                auth_user=new_auth_user,
                 first_name = add_athlete_form.cleaned_data['first_name'],
                 last_name = add_athlete_form.cleaned_data['last_name'],
                 contact_nb = add_athlete_form.cleaned_data['contact_nb'],
@@ -102,12 +126,24 @@ def add_athlete(request, pk):
                 injury = add_athlete_form.cleaned_data['injury'],
             )
             messages.success(request, 'athlete added successfully')
+            request.session["recent_username"] = username
+            request.session["recent_password"] = "password"
+            return HttpResponseRedirect(reverse('main:athlete_added'))
         else: 
             messages.error(request, 'error saving athlete')
     
     add_athlete = AddAthleteForm()
     all_athletes = Athlete.objects.all()
-    return render(request, 'main/add_athlete.html', context={'add_athlete':add_athlete, 'all_athletes':all_athletes})
+    context['add_athlete'] = add_athlete
+    context['all_athletes'] = all_athletes
+    return render(request, 'main/add_athlete.html', context=context)
+
+def athlete_added(request):
+    context = {
+            "username": request.session["recent_username"],
+            "password": request.session["recent_password"]
+            }
+    return render(request, 'main/athlete_added.html', context=context)
 
 # instruct server to add new athlete
 def post_athlete(request):
@@ -148,6 +184,10 @@ def home(request):
     if request.user.has_perm('auth.is_therapist'):
         return HttpResponseRedirect(reverse('main:overview', kwargs={'pk': 1}))
     elif request.user.has_perm('auth.is_athlete'):
-        return HttpResponseRedirect(reverse('main:athlete', kwargs={'pk': 1}))
+        pk = Athlete.objects.get(auth_user=request.user).id
+        return HttpResponseRedirect(reverse('main:athlete', kwargs={'pk': pk}))
     else:
         return HttpResponseRedirect(reverse('main:login'))
+
+def access_restricted(request):
+    return HttpResponse("you don't have access to the requested resource")
