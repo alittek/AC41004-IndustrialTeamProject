@@ -114,6 +114,24 @@ function colourChanger(readings)
   }
   }
 
+/**
+ * get_highest_reading0()
+ * 
+ * finds and displays the highest reading for readings0
+ */
+ function get_highest_reading(readings) {
+  var max_reading   // stores the highest reading from the sensor
+  
+  //console.log(readings)
+  for (let r=0; r < 4; r++) {
+    var current_reading = readings[r] // stores the current reading from the buffer
+    if (max_reading < current_reading) { // check if the current reading is higher than the highest reading
+      max_reading = current_reading // set the current reading as the new highest reading
+      console.log(max_reading)  // send the max reading to the console
+    }
+  }   
+}
+
 //load modles
 modleload()
 
@@ -128,5 +146,6 @@ function animate() {
 export function update_heatmap(readings) {
   requestAnimationFrame(animate)
   colourChanger(readings)
+  get_highest_reading(readings)
 }
 

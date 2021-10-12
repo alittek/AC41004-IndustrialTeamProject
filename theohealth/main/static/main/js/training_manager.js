@@ -111,7 +111,7 @@ function fetch_readings() {
       }
     }
     update_heatmap([readings[0], readings[1], readings[2], readings[3]])
-    get_highest_reading0(readings[0])
+    // get_highest_reading([readings[0], readings[1], readings[2], readings[3]])
     // get_highest_reading1(readings[1])
     // get_highest_reading2(readings[2])
     // get_highest_reading3(readings[3])
@@ -125,23 +125,23 @@ function fetch_readings() {
 fetch_readings()
 
 
-/**
- * get_highest_reading0()
- * 
- * finds and displays the highest reading for readings0
- */
- function get_highest_reading0(readings0) {
-  var max_reading   // stores the highest reading from the sensor
-  var current_reading = readings0   // stores the current reading from the buffer
+// /**
+//  * get_highest_reading0()
+//  * 
+//  * finds and displays the highest reading for readings0
+//  */
+//  function get_highest_reading(readings) {
+//   var max_reading   // stores the highest reading from the sensor
+//   var current_reading = readings0   // stores the current reading from the buffer
 
-    if (max_reading < current_reading) {  // check if the current reading is higher than the highest reading
-      max_reading = current_reading   // set the current reading as the new highest reading
-      console.log(max_reading)  // send the max reading to the console
-    }
-    else {
-      console.log(max_reading)  // send the max reading to the console
-    }    
-}
+//     if (max_reading < current_reading) {  // check if the current reading is higher than the highest reading
+//       max_reading = current_reading   // set the current reading as the new highest reading
+//       console.log(max_reading)  // send the max reading to the console
+//     }
+//     else {
+//       console.log(max_reading)  // send the max reading to the console
+//     }    
+// }
 
 
 // /**
