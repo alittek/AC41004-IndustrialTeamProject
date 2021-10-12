@@ -44,16 +44,16 @@ var sensor_value = 200
 
 
 let buffer = []
-// /*
-// * this function goes through all element in the buffer and displays them regardless of timestamps
-// */
-// function simple_loop() {
-//     for (var i = 0; i < buffer[0].length; i++) {
-//       var current_reading = buffer[0].shift() // current reading = next time value
-//       console.log(current_reading)
-//      // update_heatmap(current_reading)
-//     }
-// }
+/*
+* this function goes through all element in the buffer and displays them regardless of timestamps
+*/
+function simple_loop() {
+    for (var i = 0; i < buffer[0].length; i++) {
+      var current_reading = buffer[0].shift() // current reading = next time value
+      console.log(current_reading)
+     // update_heatmap(current_reading)
+    }
+}
 
 
 // /**
@@ -111,7 +111,10 @@ function fetch_readings() {
       }
     }
     update_heatmap([readings[0], readings[1], readings[2], readings[3]])
-    get_highest_reading([readings[0], readings[1], readings[2], readings[3]])
+    get_highest_reading0(readings[0])
+    get_highest_reading1(readings[1])
+    get_highest_reading2(readings[2])
+    get_highest_reading3(readings[3])
 
     }, 500)
     }
@@ -123,11 +126,33 @@ fetch_readings()
 
 
 /**
- * get_highest_reading()
+ * get_highest_reading0()
+ * 
+ * finds and displays the highest reading for readings0
+ */
+ function get_highest_reading0(readings0) {
+  var max_reading = 0   // stores the highest reading from the sensor
+  var current_reading = readings0   // stores the current reading from the buffer
+
+  for (var i = 0; i < buffer[0].length; i++) {   // loop through each item in the buffer
+    current_reading = buffer[0].shift()   // current reading = next time value
+    if (max_reading < current_reading) {  // check if the current reading is higher than the highest reading
+      max_reading = current_reading   // set the current reading as the new highest reading
+      console.log(max_reading)  // send the max reading to the console
+    }
+    else {
+      console.log(max_reading)  // send the max reading to the console
+    }    
+  }
+}
+
+
+/**
+ * get_highest_reading1()
  * 
  * finds and displays the highest reading from a workout
  */
- function get_highest_reading([reading0[], reading1[], reading2[], reading3[]]) {
+ function get_highest_reading1(readings1) {
   var max_reading = 0   // stores the highest reading from the sensor
   var current_reading = 0   // stores the current reading from the buffer
 
@@ -141,5 +166,46 @@ fetch_readings()
       console.log(max_reading)  // send the max reading to the console
     }    
   }
+}
 
+  /**
+ * get_highest_reading()
+ * 
+ * finds and displays the highest reading from a workout
+ */
+ function get_highest_reading2(readings2) {
+  var max_reading = 0   // stores the highest reading from the sensor
+  var current_reading = 0   // stores the current reading from the buffer
+
+  for (var i = 0; i < buffer[0].length; i++) {   // loop through each item in the buffer
+    current_reading = buffer[0].shift()   // current reading = next time value
+    if (max_reading < current_reading) {  // check if the current reading is higher than the highest reading
+      max_reading = current_reading   // set the current reading as the new highest reading
+      console.log(max_reading)  // send the max reading to the console
+    }
+    else {
+      console.log(max_reading)  // send the max reading to the console
+    }    
+  }
+}
+
+  /**
+ * get_highest_reading()
+ * 
+ * finds and displays the highest reading from a workout
+ */
+ function get_highest_reading3(readings3) {
+  var max_reading = 0   // stores the highest reading from the sensor
+  var current_reading = 0   // stores the current reading from the buffer
+
+  for (var i = 0; i < buffer[0].length; i++) {   // loop through each item in the buffer
+    current_reading = buffer[0].shift()   // current reading = next time value
+    if (max_reading < current_reading) {  // check if the current reading is higher than the highest reading
+      max_reading = current_reading   // set the current reading as the new highest reading
+      console.log(max_reading)  // send the max reading to the console
+    }
+    else {
+      console.log(max_reading)  // send the max reading to the console
+    }    
+  }
 }
