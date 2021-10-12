@@ -47,10 +47,8 @@
           <div class="col-12 col-sm-3 col-lg-2">Injury: </div>
           <div class="col-12 col-sm-9 col-lg-10">{{athlete.injury}}</div>
         </div>
-
-
       </p>
-      <a href="{% url 'main:athlete' athlete.id %}" class="btn btn-primary float-right">View</a>
+      <a href="{% url 'main:athlete' athlete.id %}" class="btn btn-primary float-right" data-toggle="tooltip" data-placement="left" title="view heatmap and infographics">View</a>
     </div>
 </div>
 </div>
@@ -64,7 +62,11 @@
 {% endblock content %}
 
 
-
 {% block javascript %}
-
+<!--initialize all tooltips-->
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
 {% endblock javascript %}
