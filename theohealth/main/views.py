@@ -2,13 +2,15 @@ import json
 import pandas as pd
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.template import RequestContext
 from django.urls import reverse
 
@@ -91,13 +93,22 @@ def athlete(request, pk):
     return render(request, 'main/athlete.html', context)
 
 # page to add a new athlete
+@permission_required("auth.is_therapist")
 def add_athlete(request, pk):
+    context = {}
     if request.method == "POST" :
         add_athlete_form = AddAthleteForm(request.POST)   
         if add_athlete_form.is_valid():
-            default_therapist = Therapist.objects.get(pk=1)
+            therapist = Therapist.objects.get(auth_user=request.user)
+            username = add_athlete_form.cleaned_data['first_name']
+            # if there's already a user with that username, add the primary key of the newly created user)
+            if User.objects.filter(username__startswith=username) is not None:
+                username += str(User.objects.all().order_by('-pk')[0].id + 1)
+            new_auth_user = User.objects.create_user(username=username, password="password")
+            new_auth_user.user_permissions.add(Permission.objects.get(codename='is_athlete', content_type=ContentType.objects.get_for_model(User)))
             new_athlete = Athlete.objects.create(
-                therapist = default_therapist,
+                therapist = therapist,
+                auth_user=new_auth_user,
                 first_name = add_athlete_form.cleaned_data['first_name'],
                 last_name = add_athlete_form.cleaned_data['last_name'],
                 contact_nb = add_athlete_form.cleaned_data['contact_nb'],
@@ -106,12 +117,24 @@ def add_athlete(request, pk):
                 injury = add_athlete_form.cleaned_data['injury'],
             )
             messages.success(request, 'athlete added successfully')
+            request.session["recent_username"] = username
+            request.session["recent_password"] = "password"
+            return HttpResponseRedirect(reverse('main:athlete_added'))
         else: 
             messages.error(request, 'error saving athlete')
     
     add_athlete = AddAthleteForm()
     all_athletes = Athlete.objects.all()
-    return render(request, 'main/add_athlete.html', context={'add_athlete':add_athlete, 'all_athletes':all_athletes})
+    context['add_athlete'] = add_athlete
+    context['all_athletes'] = all_athletes
+    return render(request, 'main/add_athlete.html', context=context)
+
+def athlete_added(request):
+    context = {
+            "username": request.session["recent_username"],
+            "password": request.session["recent_password"]
+            }
+    return render(request, 'main/athlete_added.html', context=context)
 
 # instruct server to add new athlete
 def post_athlete(request):
