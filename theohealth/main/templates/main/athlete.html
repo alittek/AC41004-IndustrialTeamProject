@@ -38,7 +38,7 @@
 <!-- pop up messages -->
 <!-- Button trigger modal -->
 <div class="row justify-content-center">
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#motivationModal">
+  <button id="open-motivation-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#motivationModal">
     Open Motivation
   </button>
 </div>
@@ -80,40 +80,22 @@
 <script type="module" src="{% static 'main/js/heatmap.js' %}"></script>
 <script type="module" src="{% static 'main/js/training_manager.js' %}"></script>
 
-<!-- motivational messages pop up -->
+
+
+<!-- TODO: motivational messages pop up -->
 <script>
 </script>
 
-<!-- motivational messages disappear after seconds
+
+
+<!-- motivational messages disappear after seconds -->
 <script>
-  setTimeout(function(){
-    $('#motivationModal').dialog('close');
+  $('#open-motivation-btn').on("click", function() {
+    setTimeout(function(){
+    $('#motivationModal').modal('hide');
   }, 2000);
+  })
 </script>
-
-<script>
-$('#motivationModal').on('shown', function() {
-    // remove previous timeouts
-    clearTimeout(myModalTimeout);
-
-    // hide modal after time 
-    myModalTimeout = setTimeout(function() {$('#motivationModal').modal('hide');}, 2000);
-});
-</script>
-
-
-<script>
-var myModal = $('#motivationModal').on('shown', function () 
-{
-    clearTimeout(myModal.data('hideInteval'))
-    var id = setTimeout(function(){
-        myModal.modal('hide');
-    }, 2000);
-    myModal.data('hideInteval', id);
-})
-</script>
--->
-
 
 {% endblock javascript %}
  
