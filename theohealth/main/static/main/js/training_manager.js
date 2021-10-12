@@ -43,9 +43,6 @@ var sensor_value = 200
  */
 
 
-
-// --- SCOTT'S CODE BELOW ---
-
 let buffer = []
 /*
 * this function goes through all element in the buffer and displays them regardless of timestamps
@@ -93,6 +90,28 @@ function update() {
   
   new_reading = buffer[0][1]  // set the value at the most recent timestamp to be the new reading
   return new_reading  // return new_reading
+}
+
+/**
+ * get_highest_reading()
+ * 
+ * finds and displays the highest reading from a workout
+ */
+function get_highest_reading() {
+  var max_reading = 0   // stores the highest reading from the sensor
+  var current_reading = 0   // stores the current reading from the buffer
+
+  for (var i = 0; i < buffer[0].length; i++) {   // loop through each item in the buffer
+    current_reading = buffer[0].shift()   // current reading = next time value
+    if (max_reading < current_reading) {  // check if the current reading is higher than the highest reading
+      max_reading = current_reading   // set the current reading as the new highest reading
+      console.log(max_reading)  // send the max reading to the console
+    }
+    else {
+      console.log(max_reading)  // send the max reading to the console
+    }    
+  }
+
 }
 
 // from all files
