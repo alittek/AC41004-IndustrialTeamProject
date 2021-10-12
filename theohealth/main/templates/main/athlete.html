@@ -48,7 +48,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-body text-center">
-          <p>Keep going</p>
+          <p><span id="modal_message"></span></p>
         </div>
       </div>
     </div>
@@ -88,26 +88,36 @@
 
 
 
-<!-- motivational messages disappear after seconds -->
+<!-- motivational messages functionality -->
 <script>
+ // array for message options
+  const motivationalMessages = [
+    "Keep Going!",
+    "You can do it!",
+    "Almost done!",
+    "Good Job!",
+    "Well done!",
+    "Run Forrest, Run!",
+    "Go faster!!"
+  ]
+
+  // get a random message from the array
+  function random_message(items) {
+    var item = motivationalMessages[Math.floor(Math.random()*motivationalMessages.length)];
+    return item;
+  }
+  //
   $('#open-motivation-btn').on("click", function() {
+    // remove previous data to get a new message
+    $('#motivationModal').removeData('bs.modal');
+    // get a new random message
+    document.getElementById("modal_message").innerHTML = random_message(motivationalMessages);
+    // set timer for modal to disappear
     setTimeout(function(){
-    $('#motivationModal').modal('hide');
+      $('#motivationModal').modal('hide');
   }, 2000);
   })
 </script>
-
-<!-- array for messages -->
-<script>
-const motivationalMessages = [
-  "Keep Going!",
-  "You can do it!",
-  "Almost done!",
-  "Good Job!",
-  "Well done!"
-]
-</script>
-
 
 {% endblock javascript %}
  
