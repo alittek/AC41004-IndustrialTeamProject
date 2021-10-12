@@ -5,31 +5,32 @@
 {% block content %}
 
 <div class="heading">
-    <h1>Overview of all clients</h1>
+  <h1>Overview of all clients</h1>
 </div>
 
 <div class="container">
-{% if athlete_list %} <!-- check if clients available -->
-<!-- search bar to find individual client -->
+  {% if athlete_list %} <!-- check if clients available -->
+  <!-- search bar to find individual client -->
   <div class="container" style="width: 85%;">
     <div class="row" style="margin-bottom: 20px;">
-      <div class="col-12 col-sm-9 col-lg-10"> 
-        <input type="search" placeholder="Search athletes..." class="form-control">
-      </div>
-      <div class="col-12 col-sm-3 col-lg-2"> 
-        <a href="" class="btn btn-primary float-right"><i class="bi bi-search text-white"></i></a>
-      </div>
+      <form method="get">
+        <div class="col-12 col-sm-9 col-lg-10">
+          <input type="search" placeholder="Search athletes..." class="form-control" id="q" name="q">
+        </div>
+        <div class="col-12 col-sm-3 col-lg-2">
+          <a onclick="search_athlete()" type="submit" class="btn btn-primary float-right"><i class="bi bi-search text-white"></i></a>
+        </div>
+      </form>
     </div>
   </div>
-
-  {% for athlete in athlete_list %}  <!-- iterate through list and print info for each one -->
+  {% for athlete in athlete_list %} <!-- iterate through list and print info for each one -->
   <div class="row justify-content-center" style="margin-bottom: 20px;">
   <!-- card for info on one athlete -->
     <div class="card" style="width: 80%;">
       <div class="card-body">
         <h5 class="card-title">{{ athlete }}</h5>
-        <hr/>
-        <hr/>
+        <hr />
+        <hr />
         <p class="card-text overflow-auto">
           <div class="row">
             <div class="col-12 col-sm-3 col-lg-2">Contact: </div>
@@ -66,7 +67,16 @@
 {% endblock content %}
 
 
+<!-- search for athlete -->
 {% block javascript %}
+<script>
+  function search_athlete() {
+    var query = document.getElementById("q").value
+    // add user input to the q GET parameter
+    window.location.replace("/overview/1?q=" + query)
+  }
+</script>
+
 <!--initialize all tooltips-->
 <script>
   $(function () {
