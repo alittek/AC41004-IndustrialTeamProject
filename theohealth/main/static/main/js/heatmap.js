@@ -115,7 +115,7 @@ function colourChanger(readings)
   }
 
 /**
- * get_highest_reading0()
+ * get_highest_reading()
  * 
  * finds and displays the highest reading for readings0
  */
