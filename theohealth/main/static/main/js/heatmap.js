@@ -116,9 +116,6 @@ function colourChanger(readings)
   }
   }
 
-//load modles
-modleload()
-
 function animate() {
   requestAnimationFrame(animate)
   renderer.render(scene, camera)
@@ -128,7 +125,10 @@ function animate() {
  * updates the heatmap to the value specified in new_reading
  */
 export function update_heatmap(readings) {
-  requestAnimationFrame(animate)
   colourChanger(readings)
 }
+
+// Set up heatmap
+modleload()
+requestAnimationFrame(animate)
 
