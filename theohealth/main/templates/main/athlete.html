@@ -42,8 +42,8 @@
 </div>
 <div class="row justify-content-center">
   <div class="col text-center">
-      <button class="btn btn-primary my-4" onclick="startTimer()" type="button"><i class="bi bi-play-fill text-white"></i> Start</button>
-      <button class="btn btn-primary my-4" onclick="stopCount()" type="submit"><i class="bi bi-stop-fill text-white"></i> Stop</button>
+      <button class="btn btn-primary my-4" id="start" onclick="startTimer()" type="button"><i class="bi bi-play-fill text-white"></i> Start</button>
+      <button class="btn btn-primary my-4" id="stop" onclick="stopCount()" type="button"><i class="bi bi-stop-fill text-white"></i> Stop</button>
   </div>
 </div>
 </div>
@@ -120,10 +120,17 @@
   var timer;
   var timer_on=false;
 
+  var stop_button = document.getElementById('stop');
+  var start_button = document.getElementById('start');
+  stop_button.style.display = 'none';
+
 
   // start timer
   function startTimer()
   {
+  start_button.style.display = 'none';
+  stop_button.style.display = 'inline-block';
+  
   if (!timer_on)
   {
     timer_on = true;
@@ -146,6 +153,9 @@
   // stop timer
   function stopCount()
   {
+    stop_button.style.display = 'none';
+    start_button.style.display = 'inline-block';
+
     clearInterval(timer);
     clearInterval(timer_messages);
     timer_on = false;
