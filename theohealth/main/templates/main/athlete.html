@@ -94,17 +94,6 @@
 </div>
 </div>
 
-<!-- pop up messages -->
-<!-- Button trigger modal 
-<div class="row justify-content-center">
-<div class="col text-center">
-  <button id="open-motivation-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#motivationModal">
-    Open Motivation
-  </button>
-</div>
-</div>
--->
-
 {% if perms.auth.is_athlete %}
 <!-- modal -->
 <div class="row justify-content-center">
@@ -195,7 +184,7 @@
     // display modal after interval
     timer_messages = setInterval( function(){
         automatic_messages();
-    }, 20000);
+    }, 30000);
   }
   }
   
@@ -242,20 +231,6 @@
       $('#motivationModal').modal('hide');
     }, 2000);
   }
-
-  // open motivation message on button click
-  // $('#open-motivation-btn').on("click", function() {
-  //   // remove previous data to get a new message
-  //   $('#motivationModal').removeData('bs.modal');
-  //   // get a new random message
-  //   document.getElementById("modal_message").innerHTML = random_message(motivationalMessages);
-  //   // set timer for modal to disappear
-  //   setTimeout(function(){
-  //     $('#motivationModal').modal('hide');
-  // }, 2000);
-  // })
-
-
 </script>
 
 {% endblock javascript %}
