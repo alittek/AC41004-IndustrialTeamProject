@@ -68,9 +68,13 @@ function fetch_readings() {
       if (buffer[s].length > 0) { // buffer has timestamps
 	 
          readings[s] = buffer[s].shift()[1]
-         if (readings[s] > max_readings[s]) 
+         if (readings[s] > max_readings[s]) // max readings for each sensor
           max_readings[s] = readings[s]
           console.log("updated max readings: ", max_readings[0], max_readings[1], max_readings[2], max_readings[3])
+          // document.getElementById("demo").innerHTML = 0;
+          // document.getElementById("demo").innerHTML = 0;
+          // document.getElementById("demo").innerHTML = 0;
+          // document.getElementById("demo").innerHTML = 0;
       } else {
         clearInterval(simple_interval)
       }
