@@ -36,15 +36,14 @@
 
 <!-- TODO --> 
 <!-- timersection -->
-<div class="container">
+<div class="card">
 <div class="row justify-content-center">
-  <span id="minutes">00</span> : <span id="seconds">00</span>
+  <h1><span id="minutes">00</span> : <span id="seconds">00</span></h1>
 </div>
 <div class="row justify-content-center">
   <div class="col text-center"> 
       <button class="btn btn-primary my-4" onclick="startTimer()" type="button"><i class="bi bi-play-fill bi-timer"></i> Start</button>
       <button class="btn btn-primary my-4" onclick="stopCount()" type="submit"><i class="bi bi-stop-fill bi-timer"></i> Stop</button>
-      <button class="btn btn-primary my-4" onclick="stopCount()" type="submit"><i class=""></i> Reset</button>
   </div>
 </div>
 </div>
@@ -52,9 +51,11 @@
 <!-- pop up messages -->
 <!-- Button trigger modal -->
 <div class="row justify-content-center">
+<div class="col text-center">
   <button id="open-motivation-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#motivationModal">
     Open Motivation
   </button>
+</div>
 </div>
 <!-- modal -->
 <div class="row justify-content-center">
@@ -73,7 +74,7 @@
 <!-- display heatmap here -->
 <div class="row justify-content-center text-center">
   <span class="border border-dark">
-  <div class="col-11">
+  <div class="col">
     <!-- format heatmap to fit on screen -->
     <div id="heatmap">  
     </div>
