@@ -45,7 +45,7 @@ const controls = new OrbitControls(camera, renderer.domElement)
 controls.minPolarAngle=controls.maxPolarAngle=1.57079
 controls.enablePan = false; //fixes the movment my need to limit it rather than stop it
 //zoom distance
-controls.minDistance = 4;
+controls.minDistance = 4; 
 controls.maxDistance = 8;
 
 //addlights
@@ -98,7 +98,7 @@ var thresholds = [
 ]
 /*
 There will be a colourChanger for each limb when the "reading" test data is replaced
-currently all limbs change to the same colour because we dont have 4 reading genorators
+currently all limbs change to the same colour because we dont have 4 reading genorators 
 I have changed the order for the limbs to better show what the end product will be but they
 should be c1 - c6 in order
 */
@@ -118,12 +118,12 @@ function colourChanger(readings)
 
 /**
  * get_highest_reading()
- *
+ * 
  * finds and displays the highest reading for readings0
  */
  function get_highest_reading(readings) {
   var max_reading   // stores the highest reading from the sensor
-
+  
   //console.log(readings)
   for (let r=0; r < 4; r++) {
     var current_reading = readings[r] // stores the current reading from the buffer
@@ -131,7 +131,7 @@ function colourChanger(readings)
       max_reading = current_reading // set the current reading as the new highest reading
       console.log(max_reading)  // send the max reading to the console
     }
-  }
+  }   
 }
 
 function animate() {
@@ -144,6 +144,12 @@ function animate() {
  */
 export function update_heatmap(readings) {
   colourChanger(readings)
+}
+
+/*
+ * updates the highest reading from the sensor
+ */
+export function update_highest_reading(readings) {
   get_highest_reading(readings)
 }
 

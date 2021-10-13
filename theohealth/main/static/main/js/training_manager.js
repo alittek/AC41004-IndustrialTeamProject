@@ -2,7 +2,7 @@
  * Training Manager
  * a module that updates the heatmap according to sensor readings
  */
-import { update_heatmap } from "./heatmap.js"
+import { update_heatmap, update_highest_reading } from "./heatmap.js"
 
 /*
  * Generates values for testing the heatmap
@@ -111,10 +111,7 @@ function fetch_readings() {
       }
     }
     update_heatmap([readings[0], readings[1], readings[2], readings[3]])
-    // get_highest_reading([readings[0], readings[1], readings[2], readings[3]])
-    // get_highest_reading1(readings[1])
-    // get_highest_reading2(readings[2])
-    // get_highest_reading3(readings[3])
+    update_highest_reading([readings[0], readings[1], readings[2], readings[3]])
 
     }, 500)
     }
