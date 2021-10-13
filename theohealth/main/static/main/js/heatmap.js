@@ -63,21 +63,18 @@ var models = Array(4)
 for (let i=0; i < models.length; i++) {
 	models[i] = new THREE.Object3D()
 }
-<<<<<<< HEAD
 //create the modles(all included for later use)
 var UpperRightLeg = new THREE.Object3D()
 var UpperLeftLeg = new THREE.Object3D()
 var LowerRightLeg = new THREE.Object3D()
 var LowerLeftLeg = new THREE.Object3D()
 
+var RightLeg = new THREE.Object3D()
+var LeftLeg = new THREE.Object3D()
+
 /*
  * Loads all models
  */
-=======
-//create the unused leg modles
-var RightLeg = new THREE.Object3D()
-var LeftLeg = new THREE.Object3D()
->>>>>>> main
 function modleload() {
 
   // same with array
