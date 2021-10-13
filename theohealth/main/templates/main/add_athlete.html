@@ -1,22 +1,68 @@
 {% extends "main/base.html" %}
 
 {% block title %} theo {% endblock title %}
+{% load crispy_forms_tags %}
+
 
 {% block content %}
-
-<h1>This is the Add Athlete page!!!</h1>
-
-<form action="/name/" method="post">
-    <label for="first_name">First name: </label>
-    <input id="first_name" type="text" name="first_name" value="{{ current_first_name }}">
-    <label for="last_name">Last name: </label>
-    <input id="last_name" type="text" name="last_name" value="{{ current_last_name }}">
-    <input type="submit" value="OK">
-</form>
-
+<!-- form to enter details of a new client -->
+<!-- name, contact number, email, phone number, injury -->
+<div class="container" style="padding: 30px;">
+  <div class="row justify-content-center">
+    <!--Django Model Form-->
+    <h1 class="my-4">New Client</h1>
+  </div>
+  <div class="row justify-content-center">
+    <!-- get form from forms.py -->
+    <form method="post" style="width: 600px;">
+      {% csrf_token %}
+      <div class="form-row">
+        <div class="form-group col-md-6 mb-0">
+          <span data-toggle='tooltip' title='first name of new client'>
+            {{ add_athlete.first_name|as_crispy_field }}
+          </span>
+        </div>
+          <div class="form-group col-md-6 mb-0">
+            <span data-toggle='tooltip' title='last name of new client'>
+              {{ add_athlete.last_name|as_crispy_field }}
+            </span>
+        </div>
+      </div>
+      <span data-toggle='tooltip' title='contact for new client'>
+        {{ add_athlete.contact_nb|as_crispy_field }}
+      </span>
+      <span data-toggle='tooltip' title='email for new client'>
+        {{ add_athlete.email|as_crispy_field }}
+      </span>
+      <span data-toggle='tooltip' title='phone no for new client'>
+        {{ add_athlete.phone_nb|as_crispy_field }}
+      </span>
+      <span data-toggle='tooltip' title='description of injury'>
+        {{ add_athlete.injury|as_crispy_field }}
+      </span>
+      <button class="btn btn-primary my-4 float-right" type="submit" data-toggle="tooltip" data-placement="bottom" title="add a new client">Submit</button>
+    </form>
+  </div>
+  <div class="row justify-content-center">
+    <!-- print messages if available -->
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <p  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
+      {% endfor %}
+    </ul>
+    {% endif %}   
+  </div>
+</div>
 {% endblock content %}
 
 
 
 {% block javascript %}
+<!--initialize all tooltips-->
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
 {% endblock javascript %}

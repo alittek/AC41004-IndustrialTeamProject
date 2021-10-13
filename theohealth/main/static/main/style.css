@@ -1,9 +1,55 @@
 /*
  * General
  */
-h1 {
-    color: green;
+* {
+  font-family: 'Poppins', 'Open Sans', 'sans-serif'; 
+  color:#0297a2;
 }
+
+.heading {
+  background-color: #f36d21;
+  padding: 15px;
+  text-align: center;
+  margin-bottom: 50px;
+  width: 100%;
+}
+
+.heading h1 {
+  color: white;
+}
+
+.content {
+  max-width: 1400px;
+  margin: auto;
+}
+
+.btn {
+  background-color: #f36d21 !important;
+  border-color: #f36d21 !important;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  border-radius: 25px !important;
+}
+
+footer {
+  font-weight: bold;
+  margin-top: 70px;
+}
+
+.error {
+  color: #f36d21;
+}
+
+/*
+ * athlete page
+*/
+
+li.list-group-item {
+  background-color: white !important;
+  word-wrap: break-word;
+}
+
+
 
 /*
  * Heatmap

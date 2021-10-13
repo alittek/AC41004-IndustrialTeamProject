@@ -16,7 +16,7 @@ var light = new THREE.AmbientLight(0xffffff, 0.5)
 var lightS = new THREE.DirectionalLight(0xffffff, 0.7)
 
 //make sure secen fits the window
-renderer.setSize(innerWidth, innerHeight)
+renderer.setSize(innerWidth*0.7, innerHeight*0.7)
 renderer.setPixelRatio(devicePixelRatio)
 // document.body.appendChild(renderer.domElement)
 document.getElementById("heatmap").appendChild(renderer.domElement)
@@ -54,6 +54,10 @@ controls.maxDistance = 32;
 scene.add(light)
 scene.add(lightS)
 
+var models = Array(4)
+for (let i=0; i < models.length; i++) {
+	models[i] = new THREE.Object3D()
+}
 //create the modles(all included for later use)
 var UpperRightLeg = new THREE.Object3D()
 var UpperLeftLeg = new THREE.Object3D()
@@ -64,6 +68,7 @@ var LeftLeg = new THREE.Object3D()
 
 
 function modleload() {
+
   //Lower left leg
 
   loader.load('/static/main/3d_models/Leg_Model_1.gltf', function(gltf) {
@@ -99,33 +104,35 @@ function modleload() {
     scene.add(RightLeg);
   })
 }
+
+
+var thresholds = [
+	{threshold: 0, material: new THREE.MeshStandardMaterial({ color: 0xc8d124 }) },
+	{threshold: 300, material: new THREE.MeshStandardMaterial({ color: 0xd1b424 }) },
+	{threshold: 500, material: new THREE.MeshStandardMaterial({ color: 0xd18624 }) },
+	{threshold: 600, material: new THREE.MeshStandardMaterial({ color: 0xd15e24 }) },
+	{threshold: 700, material: new THREE.MeshStandardMaterial({ color: 0xd14424 }) },
+	{threshold: 900, material: new THREE.MeshStandardMaterial({ color: 0xc12424 }) },
+]
 /*
 There will be a colourChanger for each limb when the "reading" test data is replaced
 currently all limbs change to the same colour because we dont have 4 reading genorators 
 I have changed the order for the limbs to better show what the end product will be but they
 should be c1 - c6 in order
 */
-function colourChanger()
+function colourChanger(readings)
   {
-    console.log(reading)
-   switch(reading) {
-    case 300 : {LowerLeftLeg.material = c3, LowerRightLeg.material = c1, UpperLeftLeg.material = c2, UpperRightLeg.material = c1}
-    break
-    case 500 : {LowerLeftLeg.material = c3, LowerRightLeg.material = c4, UpperLeftLeg.material = c2, UpperRightLeg.material = c2}
-    break
-    case 600 : {LowerLeftLeg.material = c4, LowerRightLeg.material = c4, UpperLeftLeg.material = c2, UpperRightLeg.material = c1}
-    break
-    case 700 : {LowerLeftLeg.material = c2, LowerRightLeg.material = c4, UpperLeftLeg.material = c1, UpperRightLeg.material = c3}
-    break
-    case 800 : {LowerLeftLeg.material = c6, LowerRightLeg.material = c5, UpperLeftLeg.material = c3, UpperRightLeg.material = c3}
-    break
-    case 900 : {LowerLeftLeg.material = c5, LowerRightLeg.material = c6, UpperLeftLeg.material = c2, UpperRightLeg.material = c1}
-    break
-   }
+  let t = 0
+  for (let r=0; r < 4; r++) {
+    t = 0
+    for (let i=0; i<thresholds.length; i++) {
+	if (readings[r] > thresholds[i].threshold) {
+		t = i
+	}
+    }
+    models[r].material = thresholds[t].material
   }
-
-//load modles
-modleload()
+  }
 
 function animate() {
   requestAnimationFrame(animate)
@@ -135,9 +142,11 @@ function animate() {
 /*
  * updates the heatmap to the value specified in new_reading
  */
-export function update_heatmap(new_reading) {
-  requestAnimationFrame(animate)
-  reading = new_reading
-  colourChanger()
+export function update_heatmap(readings) {
+  colourChanger(readings)
 }
+
+// Set up heatmap
+modleload()
+requestAnimationFrame(animate)
 
