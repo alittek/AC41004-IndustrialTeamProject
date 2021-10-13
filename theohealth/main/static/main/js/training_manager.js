@@ -70,7 +70,7 @@ function fetch_readings() {
          readings[s] = buffer[s].shift()[1]
          if (readings[s] > max_readings[s]) 
           max_readings[s] = readings[s]
-          console.log("updated max readings: ", max_readings[0], max_readings[2])
+          console.log("updated max readings: ", max_readings[0], max_readings[1], max_readings[2], max_readings[3])
       } else {
         clearInterval(simple_interval)
       }
