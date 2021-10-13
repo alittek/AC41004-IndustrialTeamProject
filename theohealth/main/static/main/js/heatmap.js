@@ -104,18 +104,17 @@ should be c1 - c6 in order
 */
 function colourChanger(readings)
   {
-	  console.log(readings)
+  let t = 0
   for (let r=0; r < 4; r++) {
+    t = 0
     for (let i=0; i<thresholds.length; i++) {
 	if (readings[r] > thresholds[i].threshold) {
-		models[r].material = thresholds[i].material
+		t = i
 	}
     }
+    models[r].material = thresholds[t].material
   }
   }
-
-//load modles
-modleload()
 
 function animate() {
   requestAnimationFrame(animate)
@@ -126,7 +125,10 @@ function animate() {
  * updates the heatmap to the value specified in new_reading
  */
 export function update_heatmap(readings) {
-  requestAnimationFrame(animate)
   colourChanger(readings)
 }
+
+// Set up heatmap
+modleload()
+requestAnimationFrame(animate)
 
