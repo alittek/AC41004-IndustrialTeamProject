@@ -34,19 +34,21 @@ var c3 = new THREE.MeshStandardMaterial({ color: 0xd18624 })
 var c4 = new THREE.MeshStandardMaterial({ color: 0xd15e24 })
 var c5 = new THREE.MeshStandardMaterial({ color: 0xd14424 })
 var c6 = new THREE.MeshStandardMaterial({ color: 0xd12424 })
+//grey
+var d = new THREE.MeshStandardMaterial({ color: 0xa6a6a6 })
 
 //set the light and camera positions for the secen
 light.position.set(0, 0, 1)
 camera.position.z = 7
-camera.position.y = 0
+camera.position.y = 17
 
 //orbit Controls
 const controls = new OrbitControls(camera, renderer.domElement)
 controls.minPolarAngle=controls.maxPolarAngle=1.57079
 controls.enablePan = false; //fixes the movment my need to limit it rather than stop it
 //zoom distance
-controls.minDistance = 4; 
-controls.maxDistance = 8;
+controls.minDistance = 22; 
+controls.maxDistance = 32;
 
 //addlights
 scene.add(light)
@@ -57,28 +59,44 @@ var UpperRightLeg = new THREE.Object3D()
 var UpperLeftLeg = new THREE.Object3D()
 var LowerRightLeg = new THREE.Object3D()
 var LowerLeftLeg = new THREE.Object3D()
+var RightLeg = new THREE.Object3D()
+var LeftLeg = new THREE.Object3D()
+
 
 function modleload() {
   //Lower left leg
-  loader.load('/static/main/3d_models/LowerL.gltf', function(gltf) {
-    LowerLeftLeg = gltf.scene.children.find((child) => child.name === "LowerLeft")
-    LowerLeftLeg.position.y = -3
+
+  loader.load('/static/main/3d_models/Leg_Model_1.gltf', function(gltf) {
+    LowerLeftLeg = gltf.scene.children.find((child) => child.name === "LeftHamstring")
+    LowerLeftLeg.position.y = 22
     scene.add(LowerLeftLeg);
   })
-  loader.load('/static/main/3d_models/LowerR.gltf', function(gltf) {
-    LowerRightLeg = gltf.scene.children.find((child) => child.name === "LowerRight")
-    LowerRightLeg.position.y = -3
+  loader.load('/static/main/3d_models/Leg_Model_1.gltf', function(gltf) {
+    LowerRightLeg = gltf.scene.children.find((child) => child.name === "LeftQuad")
+    LowerRightLeg.position.y = 22
     scene.add(LowerRightLeg);
   })
-  loader.load('/static/main/3d_models/UpplerL.gltf', function(gltf) {
-    UpperRightLeg = gltf.scene.children.find((child) => child.name === "UpperLeft")
-    UpperRightLeg.position.y = -3
+  loader.load('/static/main/3d_models/Leg_Model_1.gltf', function(gltf) {
+    UpperRightLeg = gltf.scene.children.find((child) => child.name === "RightQuad")
+    UpperRightLeg.position.y = 22
     scene.add(UpperRightLeg);
   })
-  loader.load('/static/main/3d_models/UpperR.gltf', function(gltf) {
-    UpperLeftLeg = gltf.scene.children.find((child) => child.name === "UpperRight")
-    UpperLeftLeg.position.y = -3
+  loader.load('/static/main/3d_models/Leg_Model_1.gltf', function(gltf) {
+    UpperLeftLeg = gltf.scene.children.find((child) => child.name === "RightHamstring")
+    UpperLeftLeg.position.y = 22
     scene.add(UpperLeftLeg);
+  })
+  loader.load('/static/main/3d_models/Leg_Model_1.gltf', function(gltf) {
+    LeftLeg = gltf.scene.children.find((child) => child.name === "LeftLeg")
+    LeftLeg.position.y = 22
+    LeftLeg.material = d
+    scene.add(LeftLeg);
+  })
+  loader.load('/static/main/3d_models/Leg_Model_1.gltf', function(gltf) {
+    RightLeg = gltf.scene.children.find((child) => child.name === "RightLeg")
+    RightLeg.position.y = 22
+    RightLeg.material = d
+    scene.add(RightLeg);
   })
 }
 /*
