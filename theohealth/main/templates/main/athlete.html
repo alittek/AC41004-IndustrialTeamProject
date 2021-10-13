@@ -128,8 +128,6 @@
     <img src="{% static 'main/images/heatmap_legend.png' %}" class="img-fluid" width="190" height="60" alt="legend">
   </div>
 </div>
-
-
 </div>
 
 {% endblock content %}
@@ -139,21 +137,7 @@
 <script type="module" src="{% static 'main/js/heatmap.js' %}"></script>
 <script type="module" src="{% static 'main/js/training_manager.js' %}"></script>
 
-
-<!-- timer 
-<script>
-  $('#start-timer-btn').on("click", function() {
-  var sec = 0;
-    function pad ( val ) { return val > 9 ? val : "0" + val; }
-    setInterval( function(){
-        $("#seconds").html(pad(++sec%60));
-        $("#minutes").html(pad(parseInt(sec/60,10)));
-    }, 1000);
-  })
-</script>
--->
-
-
+<!-- timer and messages functionality -->
 <script>
   var timer;
   var timer_on=false;
