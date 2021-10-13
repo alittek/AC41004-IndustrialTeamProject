@@ -22,6 +22,10 @@ class Therapist(models.Model):
         return self.first_name + " " + self.last_name
 
 class Athlete(models.Model):
+    """
+    An Athlete represents an Athlete who has had an injury and is now using theohealth to support his recovery.
+    This model is associated with a auth.User for authentication and a Therapist objects for linking Therapists and Athletes.
+    """
     auth_user = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, default='')
     therapist = models.ForeignKey(Therapist, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=64, default='')
@@ -35,6 +39,9 @@ class Athlete(models.Model):
         return self.first_name + " " + self.last_name
 
 class Workout(models.Model):
+    """
+    A model to store a Workout in the database. Provides helper functions, e.g. readings_from_file can be used to read sensor values directly from file and returns them as JSON string.
+    """
     date = models.DateField()
     athlete = models.ForeignKey(Athlete, on_delete=models.CASCADE)
 
@@ -44,7 +51,6 @@ class Workout(models.Model):
 
     # Stores fields in a 3D array
     def readings_from_file(self):
-        # 3D array
         readings = []
         for i in range(1, 5):
             # Must use path from the Python shell (manage.py), not from /main!
@@ -55,27 +61,14 @@ class Workout(models.Model):
             # Appends as sensor(num)
             readings.append(values)
 
-            ########## OUTDATED FOR NOW, CAN BE UPDATED IN 2ND SPRINT ##########
-
-            # # Latter part is a mask for the input from the CSV file
-            # # x and y are the axis of the graph
-            # x = df['time'].map(lambda x: datetime.strptime(str(x), '%Y-%m-%dT%H:%M:%S.%fZ'))
-            # y = df['value']
-
-            # # Plot
-            # plt.plot(x,y)
-            # # Simplify the x-labels
-            # plt.gcf().autofmt_xdate()
-
-            # #plt.savefig('debugging_graph' + str(i) + '.png')
-
-            # # Shows the graph (Doesn't work in terminal), for debugging remove comment for line above
-            # plt.show()      
         # JSON to be able to read it into JS
         return json.dumps(readings)
 
-# Individual reading, each reading is connected to a workout id
 class SensorReading(models.Model):
+    """
+    A model for individual reading. 
+    Each reading is connected to a workout id.
+    """
     workout_num = models.ForeignKey(Workout, on_delete=models.CASCADE)
     sensor_num = models.IntegerField()
     timestamp = models.DateTimeField()

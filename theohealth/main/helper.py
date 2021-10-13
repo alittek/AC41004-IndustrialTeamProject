@@ -1,7 +1,13 @@
+"""
+helper.py - A set of function that help with basic tasks
+"""
 import random
 import string
 
 def random_password():
+    """
+    Generate a random password than can be used when creating new user accounts.
+    """
     randpass = ''
     for i in range(6):
         randinteger = random.randint(97, 122) # generate random number for ASCII chart picking only letters
