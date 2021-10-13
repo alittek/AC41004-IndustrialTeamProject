@@ -29,9 +29,6 @@ function readingGen(old_reading) {
   return new_reading
 }
 
-update_heatmap(200)
-
-
 var sensor_value = 200
 
 /*
@@ -63,8 +60,9 @@ function fetch_readings() {
 	  console.log(buffer)
     var simple_interval = setInterval(() => {
 	
-    var readings = Array(4)
+    var readings = [0,0,0,0]
     for (var s=0; s < buffer.length; s++) {
+	 console.log("readings: ", readings[0], readings[1], readings[2], readings[3])
       if (buffer[s].length > 0) { // buffer has timestamps
 	 
          readings[s] = buffer[s].shift()[1]
