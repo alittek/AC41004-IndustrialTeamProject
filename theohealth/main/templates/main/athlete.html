@@ -59,6 +59,7 @@
 </div>
 -->
 
+{% if perms.auth.is_athlete %}
 <!-- modal -->
 <div class="row justify-content-center">
   <div class="modal fade" id="motivationModal" tabindex="-1" role="dialog">
@@ -73,6 +74,7 @@
     </div>
   </div>
 </div>
+{% endif %}
 
 
 <!-- display heatmap here -->
@@ -115,16 +117,16 @@
 
 
 <script>
-  var c=0;
   var timer;
-  var timer_on=0;
+  var timer_on=false;
+
 
   // start timer
   function startTimer()
   {
   if (!timer_on)
   {
-    timer_on = 1;
+    timer_on = true;
     var sec = 0;
 
     // run timer display
@@ -146,7 +148,7 @@
   {
     clearInterval(timer);
     clearInterval(timer_messages);
-    timer_on = 0;
+    timer_on = false;
   }
 
  // motivational messages functionality 
