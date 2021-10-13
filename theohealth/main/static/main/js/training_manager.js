@@ -54,7 +54,7 @@ function simple_loop() {
      // update_heatmap(current_reading)
     }
 }
-
+var max_readings = [0,0,0,0]
 // from all files
 function fetch_readings() {
   const xHttp = new XMLHttpRequest()
@@ -68,12 +68,15 @@ function fetch_readings() {
       if (buffer[s].length > 0) { // buffer has timestamps
 	 
          readings[s] = buffer[s].shift()[1]
+         if (readings[s] > max_readings[s]) 
+          max_readings[s] = readings[s]
+          console.log("updated max readings: ", max_readings[0], max_readings[2])
       } else {
         clearInterval(simple_interval)
       }
     }
     update_heatmap([readings[0], readings[1], readings[2], readings[3]])
-    update_highest_reading([readings[0], readings[1], readings[2], readings[3]])
+    // update_highest_reading([readings[0], readings[1], readings[2], readings[3]])
 
     }, 500)
     }
