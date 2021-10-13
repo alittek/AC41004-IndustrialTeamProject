@@ -18,6 +18,10 @@
   color: white;
 }
 
+h4 {
+  color: grey;
+}
+
 .content {
   max-width: 1400px;
   margin: auto;
