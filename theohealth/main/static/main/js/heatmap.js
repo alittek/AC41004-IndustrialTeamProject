@@ -104,13 +104,15 @@ should be c1 - c6 in order
 */
 function colourChanger(readings)
   {
-	  console.log(readings)
+  let t = 0
   for (let r=0; r < 4; r++) {
+    t = 0
     for (let i=0; i<thresholds.length; i++) {
 	if (readings[r] > thresholds[i].threshold) {
-		models[r].material = thresholds[i].material
+		t = i
 	}
     }
+    models[r].material = thresholds[t].material
   }
   }
 
