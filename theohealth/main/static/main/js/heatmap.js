@@ -1,3 +1,8 @@
+/*
+ * heatmap.js - A module for visualizing a heatmap superimposed on a 3D object of legs
+ *
+ */
+
 //import needed threejs libs
 import * as THREE from 'https://cdn.skypack.dev/three@0.133.0'
 import { OrbitControls } from 'https://cdn.skypack.dev/pin/three@v0.133.0-mRqtjW5H6POaf81d9bnr/mode=imports/unoptimized/examples/jsm/controls/OrbitControls.js'
@@ -62,6 +67,9 @@ var UpperLeftLeg = new THREE.Object3D()
 var LowerRightLeg = new THREE.Object3D()
 var LowerLeftLeg = new THREE.Object3D()
 
+/*
+ * Loads all models
+ */
 function modleload() {
 
   // same with array
@@ -116,6 +124,9 @@ function colourChanger(readings)
   }
   }
 
+/*
+ * Starts the animation loop
+ */
 function animate() {
   requestAnimationFrame(animate)
   renderer.render(scene, camera)
