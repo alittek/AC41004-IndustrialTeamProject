@@ -36,15 +36,17 @@
 
 <!-- TODO --> 
 <!-- timersection -->
+<div class="container">
 <div class="row justify-content-center">
-  <span id="minutes"></span>:<span id="seconds"></span>
+  <span id="minutes">00</span> : <span id="seconds">00</span>
 </div>
-<div class="row justify-content-center"></div>
+<div class="row justify-content-center">
   <div class="col text-center"> 
       <button class="btn btn-primary my-4" onclick="startTimer()" type="button"><i class="bi bi-play-fill bi-timer"></i> Start</button>
       <button class="btn btn-primary my-4" onclick="stopCount()" type="submit"><i class="bi bi-stop-fill bi-timer"></i> Stop</button>
       <button class="btn btn-primary my-4" onclick="stopCount()" type="submit"><i class=""></i> Reset</button>
   </div>
+</div>
 </div>
 
 <!-- pop up messages -->
@@ -112,7 +114,7 @@
   var c=0;
   var timer;
   var timer_on=0;
-  
+
   // start timer
   function startTimer()
   {
