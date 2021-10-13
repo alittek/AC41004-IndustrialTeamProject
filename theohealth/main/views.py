@@ -17,6 +17,7 @@ from django.urls import reverse
 
 from main.forms import AddAthleteForm, LoginForm
 from main.models import Athlete, Therapist, Workout, SensorReading
+from main.helper import random_password
 
 # index page, redirects to home
 def index(request):
@@ -113,7 +114,8 @@ def add_athlete(request, pk):
             # if there's already a user with that username, add the primary key of the newly created user)
             if User.objects.filter(username__startswith=username) is not None:
                 username += str(User.objects.all().order_by('-pk')[0].id + 1)
-            new_auth_user = User.objects.create_user(username=username, password="password")
+            password = random_password()
+            new_auth_user = User.objects.create_user(username=username, password=password)
             new_auth_user.user_permissions.add(Permission.objects.get(codename='is_athlete', content_type=ContentType.objects.get_for_model(User)))
             new_athlete = Athlete.objects.create(
                 therapist = therapist,
@@ -127,7 +129,7 @@ def add_athlete(request, pk):
             )
             messages.success(request, 'athlete added successfully')
             request.session["recent_username"] = username
-            request.session["recent_password"] = "password"
+            request.session["recent_password"] = password
             return HttpResponseRedirect(reverse('main:athlete_added'))
         else: 
             messages.error(request, 'error saving athlete')
