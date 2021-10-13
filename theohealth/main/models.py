@@ -10,6 +10,10 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 class Therapist(models.Model):
+    """
+    A Model that represents a Therapist, i.e. Physiotherapist, that can manage multiple Athletes.
+    A Therapist is linked with a User object via the auth_user attribute. This makes it so that 
+    """
     auth_user = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, default='')
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
