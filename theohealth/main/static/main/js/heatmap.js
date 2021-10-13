@@ -39,19 +39,21 @@ var c3 = new THREE.MeshStandardMaterial({ color: 0xd18624 })
 var c4 = new THREE.MeshStandardMaterial({ color: 0xd15e24 })
 var c5 = new THREE.MeshStandardMaterial({ color: 0xd14424 })
 var c6 = new THREE.MeshStandardMaterial({ color: 0xd12424 })
+//defualt colour
+var d = new THREE.MeshStandardMaterial({ color: 0xa6a6a6 })
 
 //set the light and camera positions for the secen
 light.position.set(0, 0, 1)
 camera.position.z = 7
-camera.position.y = 0
+camera.position.y = 17
 
 //orbit Controls
 const controls = new OrbitControls(camera, renderer.domElement)
 controls.minPolarAngle=controls.maxPolarAngle=1.57079
 controls.enablePan = false; //fixes the movment my need to limit it rather than stop it
 //zoom distance
-controls.minDistance = 4; 
-controls.maxDistance = 8;
+controls.minDistance = 22; 
+controls.maxDistance = 32;
 
 //addlights
 scene.add(light)
@@ -61,6 +63,7 @@ var models = Array(4)
 for (let i=0; i < models.length; i++) {
 	models[i] = new THREE.Object3D()
 }
+<<<<<<< HEAD
 //create the modles(all included for later use)
 var UpperRightLeg = new THREE.Object3D()
 var UpperLeftLeg = new THREE.Object3D()
@@ -70,28 +73,45 @@ var LowerLeftLeg = new THREE.Object3D()
 /*
  * Loads all models
  */
+=======
+//create the unused leg modles
+var RightLeg = new THREE.Object3D()
+var LeftLeg = new THREE.Object3D()
+>>>>>>> main
 function modleload() {
 
   // same with array
-  loader.load('/static/main/3d_models/LowerL.gltf', function(gltf) {
-    models[0]  = gltf.scene.children.find((child) => child.name === "LowerLeft")
-    models[0].position.y = -3
+  loader.load('/static/main/3d_models/Leg_Model_1.gltf', function(gltf) {
+    models[0]  = gltf.scene.children.find((child) => child.name === "LeftHamstring")
+    models[0].position.y = 22
     scene.add(models[0]);
   })
-  loader.load('/static/main/3d_models/LowerR.gltf', function(gltf) {
-    models[1] = gltf.scene.children.find((child) => child.name === "LowerRight")
-    models[1].position.y = -3
+  loader.load('/static/main/3d_models/Leg_Model_1.gltf', function(gltf) {
+    models[1] = gltf.scene.children.find((child) => child.name === "LeftQuad")
+    models[1].position.y = 22
     scene.add(models[1]);
   })
-  loader.load('/static/main/3d_models/UpplerL.gltf', function(gltf) {
-    models[2] = gltf.scene.children.find((child) => child.name === "UpperLeft")
-    models[2].position.y = -3
+  loader.load('/static/main/3d_models/Leg_Model_1.gltf', function(gltf) {
+    models[2] = gltf.scene.children.find((child) => child.name === "RightQuad")
+    models[2].position.y = 22
     scene.add(models[2]);
   })
-  loader.load('/static/main/3d_models/UpperR.gltf', function(gltf) {
-    models[3] = gltf.scene.children.find((child) => child.name === "UpperRight")
-    models[3].position.y = -3
+  loader.load('/static/main/3d_models/Leg_Model_1.gltf', function(gltf) {
+    models[3] = gltf.scene.children.find((child) => child.name === "RightHamstring")
+    models[3].position.y = 22
     scene.add(models[3]);
+  })
+  loader.load('/static/main/3d_models/Leg_Model_1.gltf', function(gltf) {
+    LeftLeg = gltf.scene.children.find((child) => child.name === "LeftLeg")
+    LeftLeg.position.y = 22
+    LeftLeg.material = d
+    scene.add(LeftLeg);
+  })
+  loader.load('/static/main/3d_models/Leg_Model_1.gltf', function(gltf) {
+    RightLeg = gltf.scene.children.find((child) => child.name === "RightLeg")
+    RightLeg.position.y = 22
+    RightLeg.material = d
+    scene.add(RightLeg);
   })
 }
 
@@ -124,6 +144,24 @@ function colourChanger(readings)
   }
   }
 
+/**
+ * get_highest_reading()
+ * 
+ * finds and displays the highest reading for readings0
+ */
+ function get_highest_reading(readings) {
+  var max_reading   // stores the highest reading from the sensor
+  
+  //console.log(readings)
+  for (let r=0; r < 4; r++) {
+    var current_reading = readings[r] // stores the current reading from the buffer
+    if (max_reading < current_reading) { // check if the current reading is higher than the highest reading
+      max_reading = current_reading // set the current reading as the new highest reading
+      console.log(max_reading)  // send the max reading to the console
+    }
+  }   
+}
+
 /*
  * Starts the animation loop
  */
@@ -139,7 +177,13 @@ export function update_heatmap(readings) {
   colourChanger(readings)
 }
 
+/*
+ * updates the highest reading from the sensor
+ */
+export function update_highest_reading(readings) {
+  get_highest_reading(readings)
+}
+
 // Set up heatmap
 modleload()
 requestAnimationFrame(animate)
-

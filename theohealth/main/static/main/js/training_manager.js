@@ -2,7 +2,7 @@
  * Training Manager
  * a module that updates the heatmap according to sensor readings
  */
-import { update_heatmap } from "./heatmap.js"
+import { update_heatmap, update_highest_reading } from "./heatmap.js"
 
 var sensor_value = 200
 var buffer = []
@@ -68,6 +68,7 @@ function get_highest_reading() {
   }
 
 }
+var max_readings = [0,0,0,0]
 
 /*
  * sends an AJAX request to /workout to get sensor readings and then periodically updates these
@@ -84,11 +85,19 @@ function fetch_readings() {
       if (buffer[s].length > 0) { // buffer has timestamps
 	 
          readings[s] = buffer[s].shift()[1]
+         if (readings[s] > max_readings[s]) // max readings for each sensor
+          max_readings[s] = readings[s]
+          console.log("updated max readings: ", max_readings[0], max_readings[1], max_readings[2], max_readings[3])
+          document.getElementById("highest-value-sen1").innerHTML = max_readings[0];
+          document.getElementById("highest-value-sen2").innerHTML = max_readings[1];
+          document.getElementById("highest-value-sen3").innerHTML = max_readings[2];
+          document.getElementById("highest-value-sen4").innerHTML = max_readings[3];
       } else {
         clearInterval(simple_interval)
       }
     }
     update_heatmap([readings[0], readings[1], readings[2], readings[3]])
+    // update_highest_reading([readings[0], readings[1], readings[2], readings[3]])
 
     }, 500)
     }
