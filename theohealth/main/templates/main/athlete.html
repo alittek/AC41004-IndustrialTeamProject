@@ -146,7 +146,7 @@
     // display modal after interval
     timer_messages = setInterval( function(){
         automatic_messages();
-    }, 6000);
+    }, 20000);
   }
   }
   
@@ -163,15 +163,16 @@
 
  // motivational messages functionality 
 
+ // get athlete name to address directly
+ var name = "{{athlete.first_name}}";
+
  // array for message options
   const motivationalMessages = [
-    "Keep Going!",
-    "You can do it!",
-    "Almost done!",
-    "Good Job!",
-    "Well done!",
-    "Run Forrest, Run!",
-    "Go faster!!"
+    "Keep Going, "+ name + "!",
+    "You can do it, "+ name + "!",
+    "Almost done, "+ name + "!",
+    "Good Job, "+ name + "!",
+    "Well done, "+ name + "!",
   ]
 
   // get a random message from the array
