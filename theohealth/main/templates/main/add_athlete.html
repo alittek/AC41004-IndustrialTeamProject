@@ -5,12 +5,12 @@
 
 
 {% block content %}
-<!-- form to enter details of a new client -->
+<!-- form to enter details of a new athlete -->
 <!-- name, contact number, email, phone number, injury -->
 <div class="container" style="padding: 30px;">
   <div class="row justify-content-center">
     <!--Django Model Form-->
-    <h1 class="my-4">New Client</h1>
+    <h1 class="my-4">New athlete</h1>
   </div>
   <div class="row justify-content-center">
     <!-- get form from forms.py -->
@@ -18,29 +18,29 @@
       {% csrf_token %}
       <div class="form-row">
         <div class="form-group col-md-6 mb-0">
-          <span data-toggle='tooltip' title='first name of new client'>
+          <span data-toggle='tooltip' title='first name of new athlete'>
             {{ add_athlete.first_name|as_crispy_field }}
           </span>
         </div>
-          <div class="form-group col-md-6 mb-0">
-            <span data-toggle='tooltip' title='last name of new client'>
+        <div class="form-group col-md-6 mb-0">
+            <span data-toggle='tooltip' title='last name of new athlete'>
               {{ add_athlete.last_name|as_crispy_field }}
             </span>
         </div>
       </div>
-      <span data-toggle='tooltip' title='contact for new client'>
+      <span data-toggle='tooltip' title='contact for new athlete'>
         {{ add_athlete.contact_nb|as_crispy_field }}
       </span>
-      <span data-toggle='tooltip' title='email for new client'>
+      <span data-toggle='tooltip' title='email for new athlete'>
         {{ add_athlete.email|as_crispy_field }}
       </span>
-      <span data-toggle='tooltip' title='phone no for new client'>
+      <span data-toggle='tooltip' title='phone no for new athlete'>
         {{ add_athlete.phone_nb|as_crispy_field }}
       </span>
       <span data-toggle='tooltip' title='description of injury'>
         {{ add_athlete.injury|as_crispy_field }}
       </span>
-      <button class="btn btn-primary my-4 float-right" type="submit" data-toggle="tooltip" data-placement="bottom" title="add a new client">Submit</button>
+      <button class="btn btn-primary my-4 float-right" type="submit" data-toggle="tooltip" data-placement="bottom" title="add a new athlete">Submit</button>
     </form>
   </div>
   <div class="row justify-content-center">
